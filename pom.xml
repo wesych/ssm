@@ -10,6 +10,11 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ssm-business-api</module>
+        <module>ssm-business-dao</module>
+        <module>ssm-business-service</module>
+        <module>ssm-common-utils</module>
+        <module>ssm-web-portal</module>
+        <module>ssm-web-management</module>
     </modules>
 
 

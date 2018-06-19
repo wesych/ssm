@@ -3,6 +3,8 @@
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/ssm-business-api" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web-management" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-web-portal" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

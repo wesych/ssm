@@ -7,6 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ssm-business-api" />
+        <module name="ssm-business-dao" />
+        <module name="ssm-business-service" />
+        <module name="ssm-common-utils" />
+        <module name="ssm-web-management" />
+        <module name="ssm-web-portal" />
       </profile>
     </annotationProcessing>
   </component>
