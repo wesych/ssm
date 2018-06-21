@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Redis 连接池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+    </bean>
+
+    <!-- Redis Sentinel 哨兵集群配置 -->
+    <!-- Note: 从复制主数据，此方式无法对数据进行分片 -->
+    <bean id="redisSentinelConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
+        <constructor-arg index="0" value="${redis.master}"/>
+        <constructor-arg index="1">
+            <set>
+                <value>${redis.sentinel.1}</value>
+                <value>${redis.sentinel.2}</value>
+                <value>${redis.sentinel.3}</value>
+            </set>
+        </constructor-arg>
+        <property name="database" value="${redis.database}"/>
+        <property name="password">
+            <bean class="org.springframework.data.redis.connection.RedisPassword">
+                <constructor-arg index="0" value="${redis.sentinel.password}"/>
+            </bean>
+        </property>
+    </bean>
+
+    <!-- Redis 连接配置 -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="sentinelConfig" ref="redisSentinelConfiguration"/>
+    </bean>
+
+    <!-- Redis 序列化 -->
+    <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <bean id="jsonRedisSerializer" class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer">
+        <!-- 使用默认的 ObjectMapper，移除JSON格式化后的 “@Class”节点 -->
+        <constructor-arg name="mapper">
+            <bean class="com.fasterxml.jackson.databind.ObjectMapper"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- Redis 持久化模板 -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="valueSerializer" ref="jsonRedisSerializer"/>
+        <property name="hashKeySerializer" ref="stringRedisSerializer"/>
+        <property name="hashValueSerializer" ref="jsonRedisSerializer"/>
+    </bean>
+</beans>

@@ -23,12 +23,37 @@
     </properties>
 
     <dependencies>
+        <!-- Common Utils-->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-common-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- DAO -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-business-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- Service -->
         <dependency>
             <groupId>org.wesc</groupId>
             <artifactId>ssm-business-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
+        <!-- Test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        
     </dependencies>
 
     <build>
