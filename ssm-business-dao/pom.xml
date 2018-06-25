@@ -190,7 +190,6 @@
     </dependencies>
 
     <build>
-        <!-- 定义了变量配置文件的地址 -->
         <resources>
             <resource>
                 <directory>src/main/resources/config/${env}</directory>
@@ -204,6 +203,40 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
             </plugin>
+
+            <!-- Generator -->
+            <plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Files</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <!--<phase>generate</phase>-->
+                        <configuration>
+                            <verbose>true</verbose>
+                            <overwrite>true</overwrite>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-core</artifactId>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.mybatis</groupId>
+                        <artifactId>mybatis</artifactId>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
         </plugins>
     </build>
 
