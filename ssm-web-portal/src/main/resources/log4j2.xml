@@ -3,7 +3,7 @@
 <Configuration status="off" monitorInterval="1800">
 
     <properties>
-        <property name="LOG_HOME">/opt/logs/hafiz/log4j2Demo/logs</property>
+        <property name="LOG_HOME">/opt/logs/ssm</property>
         <property name="ERROR_LOG_FILE_NAME">error</property>
     </properties>
 
