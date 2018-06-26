@@ -2,9 +2,9 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ssm-business-api" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ssm-business-dao" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ssm-business-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-core-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-core-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ssm-core-service" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-common-utils" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-web-management" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ssm-web-portal" charset="UTF-8" />

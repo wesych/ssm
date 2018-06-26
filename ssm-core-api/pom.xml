@@ -9,10 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ssm-business-api</artifactId>
+    <artifactId>ssm-core-api</artifactId>
     <packaging>war</packaging>
 
-    <name>ssm-business-api Maven Webapp</name>
+    <name>ssm-core-api Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -33,14 +33,14 @@
         <!-- DAO -->
         <dependency>
             <groupId>org.wesc</groupId>
-            <artifactId>ssm-business-dao</artifactId>
+            <artifactId>ssm-core-dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
         <!-- Service -->
         <dependency>
             <groupId>org.wesc</groupId>
-            <artifactId>ssm-business-service</artifactId>
+            <artifactId>ssm-core-service</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
@@ -57,7 +57,7 @@
     </dependencies>
 
     <build>
-        <finalName>ssm-business-api</finalName>
+        <finalName>ssm-core-api</finalName>
     </build>
 
 </project>

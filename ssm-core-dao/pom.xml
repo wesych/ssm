@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ssm-business-dao</artifactId>
+    <artifactId>ssm-core-dao</artifactId>
 
-    <name>ssm-business-dao</name>
+    <name>ssm-core-dao</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
