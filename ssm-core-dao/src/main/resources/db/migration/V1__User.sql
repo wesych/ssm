@@ -1,7 +1,7 @@
 /*==============================================================*/
-/* Table: USER                                  */
+/* Table: UC_USER                                  */
 /*==============================================================*/
-CREATE TABLE user  (
+CREATE TABLE uc_user  (
   user_id Integer(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   account varchar(255) NOT NULL,
   nickname varchar(255) NULL DEFAULT NULL,
