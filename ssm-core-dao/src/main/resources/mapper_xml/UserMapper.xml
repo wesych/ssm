@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.wesc.ssm.dao.mapper.UcUserMapper">
-  <resultMap id="BaseResultMap" type="org.wesc.ssm.dao.entity.UcUser">
+<mapper namespace="org.wesc.ssm.dao.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="org.wesc.ssm.dao.entity.User">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
@@ -76,13 +76,13 @@
     user_id, account, nickname, mobile, password, email, gender, city, birth, join_time, 
     locked
   </sql>
-  <select id="selectByExample" parameterType="org.wesc.ssm.dao.entity.UcUserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="org.wesc.ssm.dao.entity.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from uc_user
+    from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,24 +93,24 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from uc_user
+    from user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from uc_user
+    delete from user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="org.wesc.ssm.dao.entity.UcUserExample">
-    delete from uc_user
+  <delete id="deleteByExample" parameterType="org.wesc.ssm.dao.entity.UserExample">
+    delete from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="org.wesc.ssm.dao.entity.UcUser">
+  <insert id="insert" parameterType="org.wesc.ssm.dao.entity.User">
     <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
-      select uuid_short()
+      default
     </selectKey>
-    insert into uc_user (account, nickname, mobile, 
+    insert into user (account, nickname, mobile, 
       password, email, gender, 
       city, birth, join_time, locked
       )
@@ -119,11 +119,11 @@
       #{city,jdbcType=VARCHAR}, #{birth,jdbcType=DATE}, #{joinTime,jdbcType=DATE}, #{locked,jdbcType=BIT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="org.wesc.ssm.dao.entity.UcUser">
+  <insert id="insertSelective" parameterType="org.wesc.ssm.dao.entity.User">
     <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
-      select uuid_short()
+      default
     </selectKey>
-    insert into uc_user
+    insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="account != null">
         account,
@@ -189,14 +189,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.wesc.ssm.dao.entity.UcUserExample" resultType="java.lang.Long">
-    select count(*) from uc_user
+  <select id="countByExample" parameterType="org.wesc.ssm.dao.entity.UserExample" resultType="java.lang.Long">
+    select count(*) from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update uc_user
+    update user
     <set>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
@@ -237,7 +237,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update uc_user
+    update user
     set user_id = #{record.userId,jdbcType=INTEGER},
       account = #{record.account,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
@@ -253,8 +253,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="org.wesc.ssm.dao.entity.UcUser">
-    update uc_user
+  <update id="updateByPrimaryKeySelective" parameterType="org.wesc.ssm.dao.entity.User">
+    update user
     <set>
       <if test="account != null">
         account = #{account,jdbcType=VARCHAR},
@@ -289,8 +289,8 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.wesc.ssm.dao.entity.UcUser">
-    update uc_user
+  <update id="updateByPrimaryKey" parameterType="org.wesc.ssm.dao.entity.User">
+    update user
     set account = #{account,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
@@ -303,13 +303,13 @@
       locked = #{locked,jdbcType=BIT}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <select id="selectByExampleWithRowbounds" parameterType="org.wesc.ssm.dao.entity.UcUserExample" resultMap="BaseResultMap">
+  <select id="selectByExampleWithRowbounds" parameterType="org.wesc.ssm.dao.entity.UserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from uc_user
+    from user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

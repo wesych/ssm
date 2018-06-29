@@ -174,8 +174,25 @@
             15，delimitAllColumns：设置是否所有生成的SQL中的列名都使用标识符引起来。默认为false，delimitIdentifiers参考context的属性
             注意，table里面很多参数都是对javaModelGenerator，context等元素的默认属性的一个复写；
          -->
-        <table tableName="uc_user" domainObjectName="UcUser">
-            <generatedKey  column="user_id"  sqlStatement="select uuid_short()" identity="true" />
+        <!-- Shiro Related Tables -->
+        <table tableName="user" domainObjectName="User">
+            <generatedKey  column="user_id"  sqlStatement="default" identity="true" />
+        </table>
+
+        <table tableName="role" domainObjectName="Role">
+            <generatedKey  column="role_id"  sqlStatement="default" identity="true" />
+        </table>
+
+        <table tableName="permission" domainObjectName="Permission">
+            <generatedKey  column="permission_id"  sqlStatement="default" identity="true" />
+        </table>
+
+        <table tableName="user_role" domainObjectName="UserRole">
+            <generatedKey  column="id"  sqlStatement="default" identity="true" />
+        </table>
+
+        <table tableName="role_permission" domainObjectName="RolePermission">
+            <generatedKey  column="id"  sqlStatement="default" identity="true" />
         </table>
 
     </context>

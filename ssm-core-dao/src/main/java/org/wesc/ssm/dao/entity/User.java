@@ -3,7 +3,7 @@ package org.wesc.ssm.dao.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UcUser implements Serializable {
+public class User implements Serializable {
     /**
      * userId
      */
@@ -247,7 +247,7 @@ public class UcUser implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        UcUser other = (UcUser) that;
+        User other = (User) that;
         return (this.getUserId() == null ? other.getUserId() == null : this.getUserId().equals(other.getUserId()))
             && (this.getAccount() == null ? other.getAccount() == null : this.getAccount().equals(other.getAccount()))
             && (this.getNickname() == null ? other.getNickname() == null : this.getNickname().equals(other.getNickname()))
