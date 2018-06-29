@@ -29,14 +29,10 @@ public class PaginationPlugin extends PluginAdapter {
     @Override
     public boolean sqlMapSelectByExampleWithoutBLOBsElementGenerated(
             XmlElement element, IntrospectedTable introspectedTable) {
-//		XmlElement isParameterPresenteElemen = (XmlElement) element
-//				.getElements().get(element.getElements().size() - 1);
         XmlElement isNotNullElement = new XmlElement("if"); //$NON-NLS-1$
         isNotNullElement.addAttribute(new Attribute("test", "limitStart != null and limitStart>=0")); //$NON-NLS-1$ //$NON-NLS-2$
-//		isNotNullElement.addAttribute(new Attribute("compareValue", "0")); //$NON-NLS-1$ //$NON-NLS-2$
         isNotNullElement.addElement(new TextElement(
                 "limit #{limitStart} , #{limitEnd}"));
-//		isParameterPresenteElemen.addElement(isNotNullElement);
         element.addElement(isNotNullElement);
         return super.sqlMapUpdateByExampleWithoutBLOBsElementGenerated(element,
                 introspectedTable);
@@ -47,10 +43,8 @@ public class PaginationPlugin extends PluginAdapter {
         CommentGenerator commentGenerator = context.getCommentGenerator();
         Field field = new Field();
         field.setVisibility(JavaVisibility.PROTECTED);
-//		field.setType(FullyQualifiedJavaType.getIntInstance());
         field.setType(PrimitiveTypeWrapper.getIntegerInstance());
         field.setName(name);
-//		field.setInitializationString("-1");
         commentGenerator.addFieldComment(field, introspectedTable);
         topLevelClass.addField(field);
         char c = name.charAt(0);

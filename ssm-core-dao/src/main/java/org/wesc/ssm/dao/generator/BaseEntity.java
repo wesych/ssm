@@ -36,30 +36,6 @@ public abstract class BaseEntity<ID> implements Serializable {
      */
     public abstract JSONObject toJSON();
 
-//    /**
-//     * 判断是否所有字段都为null.
-//     * @return 是否所有字段都为null
-//     */
-//    public boolean isNull() {
-//        try {
-//            PropertyDescriptor[] pds = PropertyUtils.getPropertyDescriptors(this.getClass());
-//            for (PropertyDescriptor pd : pds) {
-//                // getClass不处理
-//                if ("class".equals(pd.getName())) {
-//                    continue;
-//                }
-//                
-//                // 判断字段是否为空
-//                if (pd.getReadMethod() != null && pd.getReadMethod().invoke(this) != null) {
-//                    return false;
-//                }
-//            }
-//            return true;
-//        } catch (Exception e) {
-//            throw new RuntimeException("Failed to check null from base entity.", e);
-//        }
-//    }
-
     @Override
     public String toString() {
         try {
