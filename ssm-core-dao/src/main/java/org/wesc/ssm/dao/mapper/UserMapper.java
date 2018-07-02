@@ -2,7 +2,6 @@ package org.wesc.ssm.dao.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.session.RowBounds;
 import org.wesc.ssm.dao.entity.User;
 import org.wesc.ssm.dao.entity.UserExample;
 
@@ -16,8 +15,6 @@ public interface UserMapper {
     int insert(User record);
 
     int insertSelective(User record);
-
-    List<User> selectByExampleWithRowbounds(UserExample example, RowBounds rowBounds);
 
     List<User> selectByExample(UserExample example);
 

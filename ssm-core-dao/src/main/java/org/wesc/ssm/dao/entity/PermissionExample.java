@@ -12,6 +12,10 @@ public class PermissionExample {
 
     protected List<Criteria> oredCriteria;
 
+    protected Integer limitStart;
+
+    protected Integer limitEnd;
+
     public PermissionExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
@@ -63,6 +67,22 @@ public class PermissionExample {
         oredCriteria.clear();
         orderByClause = null;
         distinct = false;
+    }
+
+    public void setLimitStart(Integer limitStart) {
+        this.limitStart=limitStart;
+    }
+
+    public Integer getLimitStart() {
+        return limitStart;
+    }
+
+    public void setLimitEnd(Integer limitEnd) {
+        this.limitEnd=limitEnd;
+    }
+
+    public Integer getLimitEnd() {
+        return limitEnd;
     }
 
     protected abstract static class GeneratedCriteria {

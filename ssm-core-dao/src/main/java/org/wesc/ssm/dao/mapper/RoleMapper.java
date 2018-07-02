@@ -2,7 +2,6 @@ package org.wesc.ssm.dao.mapper;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.session.RowBounds;
 import org.wesc.ssm.dao.entity.Role;
 import org.wesc.ssm.dao.entity.RoleExample;
 
@@ -16,8 +15,6 @@ public interface RoleMapper {
     int insert(Role record);
 
     int insertSelective(Role record);
-
-    List<Role> selectByExampleWithRowbounds(RoleExample example, RowBounds rowBounds);
 
     List<Role> selectByExample(RoleExample example);
 

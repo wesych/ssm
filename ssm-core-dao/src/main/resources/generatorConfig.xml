@@ -60,10 +60,10 @@
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
 
         <!-- 添加分页功能（假分页，非mysql limit方法，可能会造成性能缺陷） -->
-        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <!--<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />-->
 
         <!-- 自定义分页插件：真分页 -->
-        <!--<plugin type="org.wesc.ssm.dao.generator.PaginationPlugin" />-->
+        <plugin type="org.wesc.ssm.dao.generator.PaginationPlugin" />
 
 
         <!-- 在创建class时，对注释进行控制 -->
