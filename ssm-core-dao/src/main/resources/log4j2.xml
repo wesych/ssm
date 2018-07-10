@@ -38,10 +38,10 @@
         <logger name="org.springframework.web" level="info">
         </logger>
 
-        <logger name="com.hafiz.www.controller" level="error" includeLocation="true" additivity="false">
-            <appender-ref ref="ErrorLog"/>
-            <appender-ref ref="Console"/>
-        </logger>
+        <!-- 控制某些包下的类的日志级别 -->
+        <Logger name="org.mybatis.spring" level="error">
+            <AppenderRef ref="Console"/>
+        </Logger>
 
         <root level="info" includeLocation="true">
             <appender-ref ref="Console"/>
