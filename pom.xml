@@ -43,6 +43,7 @@
         <commons-email.version>1.5</commons-email.version>
         <shiro.version>1.4.0</shiro.version>
         <guava.version>25.1-jre</guava.version>
+        <poi.version>3.17</poi.version>
     </properties>
 
     <!--版本管理，实际不下载-->
@@ -305,6 +306,17 @@
                 <version>${guava.version}</version>
             </dependency>
 
+            <!-- POI -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
