@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace is used to bind dao interface, interface-oriented programming.
+	so dao interface implement is no longer needed-->
+<mapper namespace="org.wesc.ssm.dao.querymapper.UserRolesAndPermissionsQueryMapper">
+
+    <!--<cache type=""/>-->
+
+    <!--FIND ALL ROLES -->
+    <select id="findAllRolesByUserId" parameterType="int" resultMap="org.wesc.ssm.dao.mapper.RoleMapper.BaseResultMap">
+        SELECT
+            *
+        FROM
+            role r
+        WHERE
+            r.role_id IN ( SELECT role_id FROM user_role WHERE user_id = #{userId} )
+    </select>
+
+    <!-- FIND ALL PERMISSIONS -->
+    <select id="findAllPermissionsByUserId" parameterType="int" resultMap="org.wesc.ssm.dao.mapper.PermissionMapper.BaseResultMap">
+        select * from permission p
+        where p.permission_id IN(
+          select permission_id from role_permission rp
+          where rp.role_id IN(
+            select role_id from user u
+            where u.user_id = #{userId}
+          )
+        )
+    </select>
+
+</mapper>

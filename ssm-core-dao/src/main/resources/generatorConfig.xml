@@ -24,10 +24,10 @@
             3，hierarchical：主键生成一个XXKey对象(key class)，Blob等单独生成一个对象，其他简单属性在一个对象中(record class)
         targetRuntime:
             1，MyBatis3：默认的值，生成基于MyBatis3.x以上版本的内容，包括XXXBySample；
-            2，MyBatis3Simple：类似MyBatis3，只是不生成XXXBySample；
+            2，MyBatis3Simple：类似MyBatis3，只是不生成XXXExample，可避免在table中设置不生成example；
         introspectedColumnImpl：类全限定名，用于扩展MBG
     -->
-    <context id="default" targetRuntime="MyBatis3">
+    <context id="default" targetRuntime="MyBatis3" defaultModelType="flat">
         <!-- NOTE: 以下配置项有严格的配置顺序 -->
 
         <!-- 生成的Java文件的编码 -->
@@ -50,6 +50,9 @@
         <property name="endingDelimiter" value="`"/>
 
         <!-- Plugins -->
+        <!-- 设置文件覆盖而非追加写 -->
+        <plugin type="org.wesc.ssm.dao.generator.OverIsMergeablePlugin" />
+
         <!-- 配置生成toString()方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 

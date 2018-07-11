@@ -1,6 +1,5 @@
 package org.wesc.ssm.dao.utils;
 
-import com.ameet.utils.SerializeUtil;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ibatis.cache.CacheKey;
 import org.apache.logging.log4j.LogManager;

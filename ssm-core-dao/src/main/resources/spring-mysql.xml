@@ -32,19 +32,27 @@
         <property name="testOnBorrow" value="true"/>
     </bean>
 
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations">
+            <array>
+                <value>classpath:mapper_xml/*.xml</value>
+                <value>classpath:querymapper_xml/*.xml</value>
+            </array>
+        </property>
+    </bean>
+
+    <!-- Mapper auto scan : find mapper to use 'MapperFactoryBean' proxy mapperImpl -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="basePackage" value="org.wesc.ssm.dao.mapper,
+                                            org.wesc.ssm.dao.querymapper" />
+    </bean>
+
     <!-- 事务管理 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="configLocation" value="classpath:mybatis-config.xml"></property>
-        <property name="mapperLocations" value="classpath:**/*Mapper.xml" />
-    </bean>
-
-    <mybatis:scan base-package="org.wesc.ssm.dao.mapper,
-                                org.wesc.ssm.dao.querymapper" />
 
     <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
 
