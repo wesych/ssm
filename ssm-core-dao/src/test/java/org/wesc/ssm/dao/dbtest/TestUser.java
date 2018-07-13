@@ -12,7 +12,7 @@ import org.wesc.ssm.dao.mapper.UserMapper;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-mysql.xml", "classpath:spring-redis.xml"})
+@ContextConfiguration(locations = { "classpath:spring-mysql.xml", "classpath:spring-redis-standalone.xml"})
 public class TestUser {
 
     @Autowired

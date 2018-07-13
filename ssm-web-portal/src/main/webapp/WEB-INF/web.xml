@@ -11,7 +11,7 @@
         <param-value>
             classpath:applicationContext.xml,
             classpath:spring-mysql.xml,
-            classpath:spring-redis.xml,
+            classpath:spring-redis-standalone.xml,
             classpath:spring-shiro.xml
         </param-value>
     </context-param>

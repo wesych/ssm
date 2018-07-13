@@ -4,11 +4,23 @@
        xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!-- redis连接池配置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="maxTotal" value="${redis.maxTotal}" />
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" />
+        <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+        <property name="testWhileIdle" value="${redis.testWhileIdle}" />
+    </bean>
+
     <!-- Redis Standalone 单节点配置 -->
     <bean id="redisStandaloneConfiguration" class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
-        <property name="hostName" value="${redis.serverHost}"/>
-        <property name="port" value="${redis.serverPort}"/>
-        <property name="database" value="${redis.databaseIndex}"/>
+        <property name="hostName" value="${redis.hostName}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="database" value="${redis.dbIndex}"/>
         <property name="password">
             <bean class="org.springframework.data.redis.connection.RedisPassword">
                 <constructor-arg index="0" value="${redis.password}"/>
@@ -16,9 +28,16 @@
         </property>
     </bean>
 
-    <!-- Redis 连接配置 -->
+    <!-- redis连接工厂 -->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration"/>
+    </bean>
+
+    <!-- redis连接池 -->
+    <bean id="redisPool" class="org.wesc.ssm.dao.cache.RedisPool">
+        <property name="jedisPoolConfig" ref="jedisPoolConfig"/>
+        <property name="standaloneConfiguration" ref="redisStandaloneConfiguration"/>
+        <property name="timeout" value="${redis.timeout}"/>
     </bean>
 
     <!-- Redis 序列化 -->
@@ -38,7 +57,5 @@
         <property name="hashKeySerializer" ref="stringRedisSerializer"/>
         <property name="hashValueSerializer" ref="jsonRedisSerializer"/>
     </bean>
-
-
 
 </beans>

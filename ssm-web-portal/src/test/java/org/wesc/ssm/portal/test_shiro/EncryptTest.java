@@ -10,7 +10,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wesc.ssm.dao.entity.User;
 import org.wesc.ssm.dao.mapper.UserMapper;
 import org.wesc.ssm.portal.shiro.PasswordHelper;
-import org.wesc.ssm.service.user.UserService;
 
 /**
  * @author Wesley Cheung
@@ -20,7 +19,7 @@ import org.wesc.ssm.service.user.UserService;
 @ContextConfiguration(locations = {
         "classpath:applicationContext.xml",
         "classpath:spring-mysql.xml",
-        "classpath:spring-redis.xml"
+        "classpath:spring-redis-standalone.xml"
 })
 public class EncryptTest {
 

@@ -22,10 +22,15 @@
         </property>
         <property name="filterChainDefinitions">
             <value>
-                /* = anon
+                /login = authc
+                /logout = logout
             </value>
         </property>
     </bean>
+
+    <!-- 保证实现shiro内部的生命周期函数bean的执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
 
     <!-- Security Manager -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -52,8 +57,8 @@
     </bean>
 
     <!-- cacheManager -->
-    <bean id="redisCacheManager" class="com.ameet.web.shiro.cache.RedisCacheManager">
-        <property name="redisManager" ref="redisManager" />
+    <bean id="redisCacheManager" class="org.wesc.ssm.portal.shiro.RedisCacheManager">
+        <property name="redisClient" ref="redisClient" />
     </bean>
 
     <!-- Session Manager -->
@@ -63,12 +68,21 @@
         <property name="sessionValidationInterval" value="1800000" />
         <property name="sessionValidationSchedulerEnabled" value="true" />
         <property name="sessionDAO" ref="redisSessionDAO" />
-        <property name="sessionIdCookie" ref="mySessionIdCookie" />
+        <property name="sessionIdCookie" ref="customSessionIdCookie" />
+    </bean>
+
+    <!--Redis Session DAO : 基于redis缓存的session共享 -->
+    <bean id="redisSessionDAO" class="org.wesc.ssm.portal.shiro.RedisSessionDAO">
+        <property name="redisClient" ref="redisClient" />
+    </bean>
+
+    <!--Redis Manager-->
+    <bean id="redisClient" class="org.wesc.ssm.portal.shiro.RedisClient">
+        <property name="redisPool" ref="redisPool" />
     </bean>
 
     <!-- sessionIdCookie -->
-    <bean id="mySessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-        <!-- cookie的name,对应的默认是 JSESSIONID,主要为了修改此属性 -->
+    <bean id="customSessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <constructor-arg name="name" value="SSM_JSESSIONID" />
         <property name="path" value="/" />
         <property name="httpOnly" value="true"/>
@@ -87,26 +101,5 @@
                   value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}" />
         <property name="cookie" ref="rememberMeCookie" />
     </bean>
-
-    <!--Redis Session DAO-->
-    <bean id="redisSessionDAO" class="com.ameet.web.shiro.session.RedisSessionDAO">
-        <property name="redisManager" ref="redisManager" />
-    </bean>
-
-    <!--Redis Manager-->
-    <bean id="redisManager" class="com.ameet.web.shiro.cache.RedisManager">
-        <property name="redisPool" ref="redisPool" />
-    </bean>
-
-    <!--Redis Pool-->
-    <bean id="redisPool" class="com.ameet.web.shiro.cache.RedisPool">
-        <property name="host" value="${redis.host}"/>
-        <property name="port" value="${redis.port}"/>
-        <property name="timeout" value="${redis.timeout}"/>
-        <property name="config" ref="jedisPoolConfig"/>
-    </bean>
-
-    <!-- Shiro Life Cycle -->
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
 </beans>
