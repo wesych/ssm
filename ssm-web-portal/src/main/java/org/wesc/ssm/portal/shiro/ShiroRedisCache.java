@@ -14,7 +14,7 @@ import java.util.*;
  * @Auther: Wesley Cheung
  * @Date: 2018/7/13 14:00
  */
-public class RedisCache<K,V> implements Cache<K,V> {
+public class ShiroRedisCache<K,V> implements Cache<K,V> {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -49,7 +49,7 @@ public class RedisCache<K,V> implements Cache<K,V> {
     /**
      * 通过一个JedisManager实例构造RedisCache
      */
-    public RedisCache(RedisClient redisClient) {
+    public ShiroRedisCache(RedisClient redisClient) {
         if (redisClient == null) {
             throw new IllegalArgumentException("Cache argument cannot be null.");
         }
@@ -62,7 +62,7 @@ public class RedisCache<K,V> implements Cache<K,V> {
      * @param redisClient The cache manager instance
      * @param prefix The Redis key prefix
      */
-    public RedisCache(RedisClient redisClient, String prefix) {
+    public ShiroRedisCache(RedisClient redisClient, String prefix) {
 
         this(redisClient);
 

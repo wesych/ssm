@@ -6,7 +6,9 @@
     <!-- 配置mybatis的缓存，延迟加载等等一系列属性 -->
     <settings>
 
-        <!-- 开启二级缓存，一级缓存为mybatis内部处理的session -->
+        <!-- 开启二级缓存，一级缓存对象为session, 二级缓存对象为namespace -->
+        <!-- NOTE:多表操作不能使用二级缓存，会导致查询数据结果不对，只能在【只有单表操作】的表上使用缓存 -->
+        <!-- 二级缓存：mapper中添加<cache type=""/> -->
         <setting name="cacheEnabled" value="true"/>
 
         <!-- 查询时，关闭关联对象即时加载以提高性能 -->

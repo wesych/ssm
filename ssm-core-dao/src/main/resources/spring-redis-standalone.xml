@@ -16,7 +16,17 @@
         <property name="testWhileIdle" value="${redis.testWhileIdle}" />
     </bean>
 
-    <!-- Redis Standalone 单节点配置 -->
+    <!-- 方式一：Jedis连接池 -->
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg index="0" ref="jedisPoolConfig"/>
+        <constructor-arg index="1" value="${redis.hostName}"/>
+        <constructor-arg index="2" value="${redis.port}"/>
+        <constructor-arg index="3" value="${redis.timeout}"/>
+        <constructor-arg index="4" value="${redis.password}"/>
+        <constructor-arg index="5" value="${redis.dbIndex}"/>
+    </bean>
+
+    <!-- 方式二：Spring Redis Standalone 单节点配置 -->
     <bean id="redisStandaloneConfiguration" class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
         <property name="hostName" value="${redis.hostName}"/>
         <property name="port" value="${redis.port}"/>
@@ -28,16 +38,9 @@
         </property>
     </bean>
 
-    <!-- redis连接工厂 -->
+    <!-- Spring Jedis连接工厂 -->
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
         <constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration"/>
-    </bean>
-
-    <!-- redis连接池 -->
-    <bean id="redisPool" class="org.wesc.ssm.dao.cache.RedisPool">
-        <property name="jedisPoolConfig" ref="jedisPoolConfig"/>
-        <property name="standaloneConfiguration" ref="redisStandaloneConfiguration"/>
-        <property name="timeout" value="${redis.timeout}"/>
     </bean>
 
     <!-- Redis 序列化 -->
@@ -49,7 +52,7 @@
         </constructor-arg>
     </bean>
 
-    <!-- Redis 持久化模板 -->
+    <!-- Redis 持久化模板，默认序列化工具：JdkSerializationRedisSerializer -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
         <property name="keySerializer" ref="stringRedisSerializer"/>

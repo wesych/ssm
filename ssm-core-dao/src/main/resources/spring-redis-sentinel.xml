@@ -57,7 +57,7 @@
         </constructor-arg>
     </bean>
 
-    <!-- Redis 持久化模板 -->
+    <!-- Redis 持久化模板，默认序列化工具：JdkSerializationRedisSerializer -->
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
         <property name="keySerializer" ref="stringRedisSerializer"/>
@@ -65,4 +65,5 @@
         <property name="hashKeySerializer" ref="stringRedisSerializer"/>
         <property name="hashValueSerializer" ref="jsonRedisSerializer"/>
     </bean>
+
 </beans>

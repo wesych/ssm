@@ -11,8 +11,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * RedisTemplate二次封装。
+ */
 @Component
-public class RedisUtil {
+public class RedisTemplateUtil {
     /**
      * Spring Redis 基础操作模板
      */
@@ -45,32 +48,32 @@ public class RedisUtil {
 
     @Autowired
     public void setRedisTemp(RedisTemplate<String, Object> redisTemp) {
-        RedisUtil.redisTemp = redisTemp;
+        RedisTemplateUtil.redisTemp = redisTemp;
     }
 
     @Autowired
     public void setValueOps(RedisTemplate<String, Object> redisTemp) {
-        RedisUtil.valueOps = redisTemp.opsForValue();
+        RedisTemplateUtil.valueOps = redisTemp.opsForValue();
     }
 
     @Autowired
     public void setHashOps(RedisTemplate<String, Object> redisTemp) {
-        RedisUtil.hashOps = redisTemp.opsForHash();
+        RedisTemplateUtil.hashOps = redisTemp.opsForHash();
     }
 
     @Autowired
     public void setListOps(RedisTemplate<String, Object> redisTemp) {
-        RedisUtil.listOps = redisTemp.opsForList();
+        RedisTemplateUtil.listOps = redisTemp.opsForList();
     }
 
     @Autowired
     public void setSetOps(RedisTemplate<String, Object> redisTemp) {
-        RedisUtil.setOps = redisTemp.opsForSet();
+        RedisTemplateUtil.setOps = redisTemp.opsForSet();
     }
 
     @Autowired
     public void setZSetOps(RedisTemplate<String, Object> redisTemp) {
-        RedisUtil.zSetOps = redisTemp.opsForZSet();
+        RedisTemplateUtil.zSetOps = redisTemp.opsForZSet();
     }
 
     /**
@@ -84,7 +87,6 @@ public class RedisUtil {
 
     /**
      * 获取默认序列化器
-     * <p>默认序列化器为 JdkSerializationRedisSerializer</p>
      *
      * @return
      */
@@ -713,5 +715,6 @@ public class RedisUtil {
     public static Long zSetRemoveRangeByScore(String key, double min, double max) {
         return zSetOps.removeRangeByScore(key, min, max);
     }
+
 }
 

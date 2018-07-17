@@ -58,7 +58,7 @@ public class RedisCacheManager implements CacheManager {
             redisClient.getRedisPool().init();
 
             // create a new cache instance
-            c = new RedisCache<K, V>(redisClient, keyPrefix);
+            c = new ShiroRedisCache<K, V>(redisClient, keyPrefix);
 
             // add it to the cache collection
             caches.put(name, c);
