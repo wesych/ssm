@@ -4,29 +4,41 @@
 
     <!-- Redis 连接池配置 -->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <property name="maxIdle" value="${redis.maxIdle}"/>
-        <property name="maxTotal" value="${redis.maxTotal}"/>
-        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
-        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
-        <property name="testOnReturn" value="${redis.testOnReturn}"/>
+        <property name="maxIdle" value="${redis.maxIdle}" />
+        <property name="maxTotal" value="${redis.maxTotal}" />
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}" />
+        <property name="minEvictableIdleTimeMillis" value="${redis.minEvictableIdleTimeMillis}" />
+        <property name="numTestsPerEvictionRun" value="${redis.numTestsPerEvictionRun}" />
+        <property name="timeBetweenEvictionRunsMillis" value="${redis.timeBetweenEvictionRunsMillis}" />
+        <property name="testOnBorrow" value="${redis.testOnBorrow}" />
+        <property name="testWhileIdle" value="${redis.testWhileIdle}" />
     </bean>
 
     <!-- Redis Sentinel 哨兵集群配置 -->
     <!-- Note: 从复制主数据，此方式无法对数据进行分片 -->
     <bean id="redisSentinelConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
-        <constructor-arg index="0" value="${redis.master}"/>
-        <constructor-arg index="1">
-            <set>
-                <value>${redis.sentinel.1}</value>
-                <value>${redis.sentinel.2}</value>
-                <value>${redis.sentinel.3}</value>
-            </set>
-        </constructor-arg>
-        <property name="database" value="${redis.database}"/>
-        <property name="password">
-            <bean class="org.springframework.data.redis.connection.RedisPassword">
-                <constructor-arg index="0" value="${redis.sentinel.password}"/>
+        <property name="master">
+            <bean class="org.springframework.data.redis.connection.RedisNode">
+                <!-- 此处的value值必须跟sentinel.conf中monitor对象的名称一致 -->
+                <property name="name" value="mymaster"></property>
             </bean>
+        </property>
+
+        <property name="sentinels">
+            <set>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.sentinel.host1}" />
+                    <constructor-arg name="port" value="${redis.sentinel.port1}" />
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.sentinel.host2}"/>
+                    <constructor-arg name="port" value="${redis.sentinel.port2}"/>
+                </bean>
+                <bean class="org.springframework.data.redis.connection.RedisNode">
+                    <constructor-arg name="host" value="${redis.sentinel.host3}"/>
+                    <constructor-arg name="port" value="${redis.sentinel.port3}"/>
+                </bean>
+            </set>
         </property>
     </bean>
 

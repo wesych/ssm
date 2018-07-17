@@ -1,6 +1,9 @@
 <component name="ProjectDictionaryState">
   <dictionary name="dell">
     <words>
+      <w>jedis</w>
+      <w>mymaster</w>
+      <w>querymapper</w>
       <w>shiro</w>
       <w>wesc</w>
     </words>

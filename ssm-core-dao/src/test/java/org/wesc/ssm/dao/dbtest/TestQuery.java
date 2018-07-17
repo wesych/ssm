@@ -12,7 +12,7 @@ import org.wesc.ssm.dao.querymapper.UserRolesAndPermissionsQueryMapper;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:spring-mysql.xml", "classpath:spring-redis-standalone.xml"})
+@ContextConfiguration(locations = { "classpath:spring-mysql.xml", "classpath:spring-redis-sentinel.xml"})
 public class TestQuery {
 
     @Autowired

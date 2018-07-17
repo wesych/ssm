@@ -40,6 +40,7 @@
                 <value>classpath:querymapper_xml/*.xml</value>
             </array>
         </property>
+        <property name="configLocation" value="classpath:mybatis-config.xml" />
     </bean>
 
     <!-- Mapper auto scan : find mapper to use 'MapperFactoryBean' proxy mapperImpl -->
