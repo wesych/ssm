@@ -14,7 +14,7 @@ public class HomeController {
 
     @RequestMapping(value = { "/","/index" })
     public ModelAndView index() {
-        ModelAndView mv = new ModelAndView("index");
+        ModelAndView mv = new ModelAndView("public/index");
         return mv;
     }
 }

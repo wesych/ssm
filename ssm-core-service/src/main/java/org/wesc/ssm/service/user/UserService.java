@@ -33,6 +33,14 @@ public class UserService {
     private UserRolesAndPermissionsQueryMapper queryUserRolesAndPermissionsMapper;
 
     /**
+     * Add a user.
+     * @param user
+     */
+    public void addUser(User user) {
+        userMapper.insertSelective(user);
+    }
+
+    /**
      * Find by Account.
      * @param account
      * @return

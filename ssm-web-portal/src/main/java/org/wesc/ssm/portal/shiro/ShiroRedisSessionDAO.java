@@ -29,7 +29,21 @@ public class ShiroRedisSessionDAO extends AbstractSessionDAO {
 
     @Override
     public void update(Session session) throws UnknownSessionException {
-        RedisTemplateUtil.valueSet(getStringKey(session.getId()), session, SESSION_EXPIRE_TIME, TimeUnit.MINUTES);
+        saveSession(session);
+    }
+
+    /**
+     * save session
+     * @param session
+     * @throws UnknownSessionException
+     */
+    private void saveSession(Session session) throws UnknownSessionException{
+        if(session == null || session.getId() == null){
+            logger.error("session or session id is null");
+            return;
+        }
+        String key = getStringKey(session.getId());
+        RedisTemplateUtil.valueSet(key, session, SESSION_EXPIRE_TIME, TimeUnit.MINUTES);
     }
 
     @Override
@@ -61,8 +75,7 @@ public class ShiroRedisSessionDAO extends AbstractSessionDAO {
         this.assignSessionId(session, sessionId);
 
         /** save session */
-        String key = getStringKey(sessionId);
-        RedisTemplateUtil.valueSet(key, session, SESSION_EXPIRE_TIME, TimeUnit.MINUTES);
+        saveSession(session);
 
         return sessionId;
     }
