@@ -21,9 +21,7 @@ public class TestUser {
     @Test
     public void testFindAll() {
         List<User> users = userMapper.selectByExample(new UserExample());
-        for(User user : users){
-            System.err.println(user.toString());
-        }
+        users.forEach(System.err::println);
     }
 
     @Test

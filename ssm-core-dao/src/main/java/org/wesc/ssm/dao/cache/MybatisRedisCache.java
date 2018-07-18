@@ -3,11 +3,9 @@ package org.wesc.ssm.dao.cache;
 import org.apache.ibatis.cache.Cache;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -30,7 +28,7 @@ public class MybatisRedisCache implements Cache {
     /**
      * 过期时间（分钟）
      */
-    private static final long EXPIRE_TIME_IN_MINUTES = 30;
+    private static final long MYBATIS_CACHE_EXPIRE_TIME = 30;
 
     public MybatisRedisCache(final String id) {
         if (id == null) {
@@ -55,7 +53,7 @@ public class MybatisRedisCache implements Cache {
     @Override
     public void putObject(Object key, Object value) {
         if(null != value){
-            RedisTemplateUtil.valueSet(key.toString(), value, EXPIRE_TIME_IN_MINUTES, TimeUnit.MINUTES);
+            RedisTemplateUtil.valueSet(MybatisCacheKey.createMybatisCacheKey(key.toString()), value, MYBATIS_CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
             logger.debug("Put value to redis:" + value);
         }
     }
@@ -67,7 +65,8 @@ public class MybatisRedisCache implements Cache {
     @Override
     public Object getObject(Object key) {
         logger.debug("Get cached value from redis where key = " + key);
-        return RedisTemplateUtil.valueGet(key.toString());
+        Object object = RedisTemplateUtil.valueGet(MybatisCacheKey.createMybatisCacheKey(key.toString()));
+        return object;
     }
 
     /**
@@ -86,7 +85,7 @@ public class MybatisRedisCache implements Cache {
     @Override
     public Object removeObject(Object key) {
         logger.debug("Remove cached value from redis where key = " + key);
-        RedisTemplateUtil.delete(key.toString());
+        RedisTemplateUtil.delete(MybatisCacheKey.createMybatisCacheKey(key.toString()));
         return key;
     }
 
@@ -112,7 +111,8 @@ public class MybatisRedisCache implements Cache {
      */
     @Override
     public int getSize() {
-        return 0;
+        String pattern = "[\\s\\S]*";
+        return RedisTemplateUtil.keys(pattern).size();
     }
 
     /**

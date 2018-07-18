@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="dell">
     <words>
+      <w>fastjson</w>
       <w>jedis</w>
       <w>mymaster</w>
       <w>querymapper</w>

@@ -35,8 +35,8 @@
     <!-- Security Manager -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="customRealm" />
-        <property name="cacheManager" ref="redisCacheManager" />
-        <property name="sessionManager" ref="redisSessionManager" />
+        <property name="cacheManager" ref="shiroRedisCacheManager" />
+        <property name="sessionManager" ref="shiroRedisSessionManager" />
         <property name="rememberMeManager" ref="rememberMeManager" />
     </bean>
 
@@ -44,8 +44,8 @@
     <bean id="customRealm" class="org.wesc.ssm.portal.shiro.CustomRealm">
         <property name="cachingEnabled" value="true" />
         <property name="authenticationCachingEnabled" value="true" />
-        <property name="authenticationCacheName" value="authenticationCache" />
         <property name="authorizationCachingEnabled" value="true" />
+        <property name="authenticationCacheName" value="authenticationCache" />
         <property name="authorizationCacheName" value="authorizationCache" />
         <property name="credentialsMatcher" ref="hashedCredentialsMatcher"/>
     </bean>
@@ -57,28 +57,21 @@
     </bean>
 
     <!-- cacheManager -->
-    <bean id="redisCacheManager" class="org.wesc.ssm.portal.shiro.RedisCacheManager">
-        <property name="redisClient" ref="redisClient" />
+    <bean id="shiroRedisCacheManager" class="org.wesc.ssm.portal.shiro.ShiroRedisCacheManager">
     </bean>
 
-    <!-- Session Manager -->
-    <bean id="redisSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    <!-- Session Manager: 使用redis保存session -->
+    <bean id="shiroRedisSessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
         <property name="globalSessionTimeout" value="1800000" />
         <property name="deleteInvalidSessions" value="true" />
         <property name="sessionValidationInterval" value="1800000" />
         <property name="sessionValidationSchedulerEnabled" value="true" />
-        <property name="sessionDAO" ref="redisSessionDAO" />
+        <property name="sessionDAO" ref="shiroRedisSessionDAO" />
         <property name="sessionIdCookie" ref="customSessionIdCookie" />
     </bean>
 
-    <!--Redis Session DAO : 基于redis缓存的session共享 -->
-    <bean id="redisSessionDAO" class="org.wesc.ssm.portal.shiro.RedisSessionDAO">
-        <property name="redisClient" ref="redisClient" />
-    </bean>
-
-    <!--Redis Manager-->
-    <bean id="redisClient" class="org.wesc.ssm.portal.shiro.RedisClient">
-        <property name="redisPool" ref="redisPool" />
+    <!--Redis Session DAO: 基于redis缓存的session共享 -->
+    <bean id="shiroRedisSessionDAO" class="org.wesc.ssm.portal.shiro.ShiroRedisSessionDAO">
     </bean>
 
     <!-- sessionIdCookie -->
