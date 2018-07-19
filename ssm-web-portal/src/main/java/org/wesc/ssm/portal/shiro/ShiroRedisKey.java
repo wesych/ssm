@@ -10,9 +10,9 @@ import org.wesc.ssm.dao.utils.MD5Util;
  */
 public class ShiroRedisKey {
 
-    public static final String SHIRO_CACHE_KEY_PREFIX = "shiro_cache_";
+    public static final String SHIRO_CACHE_KEY_PREFIX = "shiro_cache:";
 
-    public static final String SHIRO_SESSION_KEY_PREFIX = "shiro_session_";
+    public static final String SHIRO_SESSION_KEY_PREFIX = "shiro_session:";
 
     /**
      * 创建shiro自定义的cache Key.

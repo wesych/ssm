@@ -12,7 +12,8 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 /**
- * @Description: Mybatis二级缓存类
+ * Mybatis二级缓存类
+ *
  * @Auther: Wesley Cheung
  * @Date: 2018/7/17 18:32
  */

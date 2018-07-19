@@ -53,6 +53,7 @@
     <bean id="fastjson2JsonRedisSerializer" class="org.wesc.ssm.dao.cache.Fastjson2JsonRedisSerializer">
         <constructor-arg name="clazz" value="java.lang.Object" />
     </bean>
+    <bean id="jdkSerializationRedisSerializer" class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
 
     <!-- Redis 持久化模板, FastJson -->
     <bean id="fastjsonRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
@@ -76,7 +77,9 @@
     <bean id="jdkRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
         <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="valueSerializer" ref="jdkSerializationRedisSerializer"/>
         <property name="hashKeySerializer" ref="stringRedisSerializer"/>
+        <property name="hashValueSerializer" ref="jdkSerializationRedisSerializer"/>
     </bean>
 
 </beans>

@@ -10,7 +10,7 @@ import org.wesc.ssm.dao.utils.MD5Util;
  */
 public class MybatisCacheKey {
 
-    public static final String MYBATIS_KEY_PREFIX = "mybatis_cache_";
+    public static final String MYBATIS_KEY_PREFIX = "mybatis_cache:";
 
     /**
      * 创建mybatis自定义的缓存Key.
