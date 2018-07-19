@@ -44,7 +44,7 @@
     </bean>
 
     <!-- Realm -->
-    <bean id="customRealm" class="org.wesc.ssm.portal.shiro.CustomRealm">
+    <bean id="customRealm" class="org.wesc.ssm.shiro.CustomRealm">
         <property name="cachingEnabled" value="true" />
         <property name="authenticationCachingEnabled" value="true" />
         <property name="authorizationCachingEnabled" value="true" />
@@ -60,7 +60,7 @@
     </bean>
 
     <!-- cacheManager -->
-    <bean id="shiroRedisCacheManager" class="org.wesc.ssm.portal.shiro.ShiroRedisCacheManager">
+    <bean id="shiroRedisCacheManager" class="org.wesc.ssm.shiro.ShiroRedisCacheManager">
     </bean>
 
     <!-- Session Manager: 使用redis保存session -->
@@ -74,7 +74,7 @@
     </bean>
 
     <!--Redis Session DAO: 基于redis缓存的session共享 -->
-    <bean id="shiroRedisSessionDAO" class="org.wesc.ssm.portal.shiro.ShiroRedisSessionDAO">
+    <bean id="shiroRedisSessionDAO" class="org.wesc.ssm.shiro.ShiroRedisSessionDAO">
     </bean>
 
     <!-- sessionIdCookie -->

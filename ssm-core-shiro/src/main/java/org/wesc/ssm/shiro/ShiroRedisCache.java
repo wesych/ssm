@@ -1,4 +1,4 @@
-package org.wesc.ssm.portal.shiro;
+package org.wesc.ssm.shiro;
 
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;

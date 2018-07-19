@@ -1,4 +1,4 @@
-package org.wesc.ssm.portal.shiro;
+package org.wesc.ssm.shiro;
 
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;

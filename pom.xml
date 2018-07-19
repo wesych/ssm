@@ -9,10 +9,11 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>ssm-core-api</module>
+        <module>ssm-common-utils</module>
         <module>ssm-core-dao</module>
         <module>ssm-core-service</module>
-        <module>ssm-common-utils</module>
+        <module>ssm-core-shiro</module>
+        <module>ssm-core-api</module>
         <module>ssm-web-portal</module>
         <module>ssm-web-management</module>
     </modules>

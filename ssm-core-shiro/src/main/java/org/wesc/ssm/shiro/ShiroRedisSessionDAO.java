@@ -1,4 +1,4 @@
-package org.wesc.ssm.portal.shiro;
+package org.wesc.ssm.shiro;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;

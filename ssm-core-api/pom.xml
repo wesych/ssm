@@ -44,6 +44,13 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
+        <!-- Shiro -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-core-shiro</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- Test -->
         <dependency>
             <groupId>junit</groupId>

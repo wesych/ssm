@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.wesc.ssm.dao.entity.User;
-import org.wesc.ssm.portal.shiro.PasswordHelper;
+import org.wesc.ssm.shiro.PasswordHelper;
 import org.wesc.ssm.service.user.UserService;
 import org.wesc.ssm.utils.tool.RandomIdentity;
 

@@ -9,7 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wesc.ssm.dao.entity.User;
 import org.wesc.ssm.dao.mapper.UserMapper;
-import org.wesc.ssm.portal.shiro.PasswordHelper;
+import org.wesc.ssm.shiro.PasswordHelper;
 
 /**
  * @author Wesley Cheung
