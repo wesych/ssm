@@ -1,6 +1,7 @@
 package org.wesc.ssm.dao.cache;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.*;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
@@ -12,70 +13,53 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * RedisTemplate二次封装。
+ * RedisTemplate对redis操作的二次封装.
+ *
+ * @Auther: Wesley Cheung
+ * @Date: 2018/7/19 09:59
  */
-@Component
-public class RedisTemplateUtil {
+public abstract class RedisTemplateUtil {
     /**
      * Spring Redis 基础操作模板
      */
-    private static RedisTemplate<String, Object> redisTemp;
+    public static RedisTemplate<String, Object> redisTemp;
 
     /**
      * Redis 数据类型-字符串
      */
-    private static ValueOperations<String, Object> valueOps;
+    public static ValueOperations<String, Object> valueOps;
 
     /**
      * Redis 数据类型-字典
      */
-    private static HashOperations<String, String, Object> hashOps;
+    public static HashOperations<String, String, Object> hashOps;
 
     /**
      * Redis 数据类型-列表
      */
-    private static ListOperations<String, Object> listOps;
+    public static ListOperations<String, Object> listOps;
 
     /**
      * Redis 数据类型-集合
      */
-    private static SetOperations<String, Object> setOps;
+    public static SetOperations<String, Object> setOps;
 
     /**
      * Redis 数据类型-有序集合
      */
-    private static ZSetOperations<String, Object> zSetOps;
+    public static ZSetOperations<String, Object> zSetOps;
 
-    @Autowired
-    public void setRedisTemp(RedisTemplate<String, Object> redisTemp) {
-        RedisTemplateUtil.redisTemp = redisTemp;
-    }
+    public abstract void setRedisTemp(RedisTemplate<String, Object> redisTemplate);
 
-    @Autowired
-    public void setValueOps(RedisTemplate<String, Object> redisTemp) {
-        RedisTemplateUtil.valueOps = redisTemp.opsForValue();
-    }
+    public abstract void setValueOps(RedisTemplate<String, Object> redisTemplate);
 
-    @Autowired
-    public void setHashOps(RedisTemplate<String, Object> redisTemp) {
-        RedisTemplateUtil.hashOps = redisTemp.opsForHash();
-    }
+    public abstract void setHashOps(RedisTemplate<String, Object> redisTemplate);
 
-    @Autowired
-    public void setListOps(RedisTemplate<String, Object> redisTemp) {
-        RedisTemplateUtil.listOps = redisTemp.opsForList();
-    }
+    public abstract void setListOps(RedisTemplate<String, Object> redisTemplate);
 
-    @Autowired
-    public void setSetOps(RedisTemplate<String, Object> redisTemp) {
-        RedisTemplateUtil.setOps = redisTemp.opsForSet();
-    }
+    public abstract void setSetOps(RedisTemplate<String, Object> redisTemplate);
 
-    @Autowired
-    public void setZSetOps(RedisTemplate<String, Object> redisTemp) {
-        RedisTemplateUtil.zSetOps = redisTemp.opsForZSet();
-    }
-
+    public abstract void setZSetOps(RedisTemplate<String, Object> redisTemplate);
     /**
      * 获取Spring Redis公共操作模板
      *

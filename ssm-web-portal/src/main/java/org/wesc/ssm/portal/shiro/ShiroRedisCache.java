@@ -11,7 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.wesc.ssm.dao.cache.Fastjson2JsonRedisSerializer;
-import org.wesc.ssm.dao.cache.RedisTemplateUtil;
+import org.wesc.ssm.dao.cache.FastjsonRedisTemplateUtil;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +54,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
             if (key == null) {
                 return null;
             } else {
-                Object object = RedisTemplateUtil.valueGet(createStringKey(key));
+                Object object = FastjsonRedisTemplateUtil.valueGet(createStringKey(key));
                 V value = (V) object;
                 return value;
             }
@@ -68,7 +68,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
     public V put(K key, V value) throws CacheException {
         logger.debug("Save value = " + value + "to redis with key = " + key);
         try {
-            RedisTemplateUtil.valueSet(createStringKey(key), value, CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
+            FastjsonRedisTemplateUtil.valueSet(createStringKey(key), value, CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
             return value;
         } catch (Throwable t) {
             throw new CacheException(t);
@@ -80,7 +80,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
         logger.debug("Delete value in redis where key = " + key);
         try {
             V previous = get(key);
-            RedisTemplateUtil.delete(createStringKey(key));
+            FastjsonRedisTemplateUtil.delete(createStringKey(key));
             return previous;
         } catch (Throwable t) {
             throw new CacheException(t);
@@ -90,7 +90,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
     @Override
     public void clear() throws CacheException {
         try {
-            RedisTemplateUtil.getRedisTemp().execute(new RedisCallback<Object>() {
+            FastjsonRedisTemplateUtil.getRedisTemp().execute(new RedisCallback<Object>() {
                 @Override
                 public Object doInRedis(RedisConnection redisConnection) throws DataAccessException {
                     logger.debug("flush redis");
@@ -106,7 +106,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
     @Override
     public int size() {
         try {
-            return RedisTemplateUtil.keys(ShiroRedisKey.SHIRO_CACHE_KEY_PREFIX + "*").size();
+            return FastjsonRedisTemplateUtil.keys(ShiroRedisKey.SHIRO_CACHE_KEY_PREFIX + "*").size();
         } catch (Throwable t) {
             throw new CacheException(t);
         }
@@ -115,7 +115,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
     @Override
     public Set<K> keys() {
         try {
-            Set<String> keys = RedisTemplateUtil.keys(ShiroRedisKey.SHIRO_CACHE_KEY_PREFIX + "*");
+            Set<String> keys = FastjsonRedisTemplateUtil.keys(ShiroRedisKey.SHIRO_CACHE_KEY_PREFIX + "*");
             if (CollectionUtils.isEmpty(keys)) {
                 return Collections.emptySet();
             } else {
@@ -133,7 +133,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
     @Override
     public Collection<V> values() {
         try {
-            Set<String> keys = RedisTemplateUtil.keys(ShiroRedisKey.SHIRO_CACHE_KEY_PREFIX + "*");
+            Set<String> keys = FastjsonRedisTemplateUtil.keys(ShiroRedisKey.SHIRO_CACHE_KEY_PREFIX + "*");
             if (!CollectionUtils.isEmpty(keys)) {
                 List<V> values = new ArrayList<>(keys.size());
                 for (String key : keys) {

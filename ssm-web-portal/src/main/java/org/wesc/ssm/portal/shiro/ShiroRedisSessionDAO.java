@@ -5,7 +5,7 @@ import org.apache.shiro.session.UnknownSessionException;
 import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.wesc.ssm.dao.cache.RedisTemplateUtil;
+import org.wesc.ssm.dao.cache.JdkRedisTemplateUtil;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -43,7 +43,7 @@ public class ShiroRedisSessionDAO extends AbstractSessionDAO {
             return;
         }
         String key = getStringKey(session.getId());
-        RedisTemplateUtil.valueSet(key, session, SESSION_EXPIRE_TIME, TimeUnit.MINUTES);
+        JdkRedisTemplateUtil.valueSet(key, session, SESSION_EXPIRE_TIME, TimeUnit.MINUTES);
     }
 
     @Override
@@ -52,16 +52,16 @@ public class ShiroRedisSessionDAO extends AbstractSessionDAO {
             logger.error("session or session id is null");
             return;
         }
-        RedisTemplateUtil.delete(getStringKey(session.getId()));
+        JdkRedisTemplateUtil.delete(getStringKey(session.getId()));
     }
 
     @Override
     public Collection<Session> getActiveSessions() {
         Set<Session> sessions = new HashSet<>();
-        Set<String> keys = RedisTemplateUtil.keys(ShiroRedisKey.SHIRO_SESSION_KEY_PREFIX + "*");
+        Set<String> keys = JdkRedisTemplateUtil.keys(ShiroRedisKey.SHIRO_SESSION_KEY_PREFIX + "*");
         if(null != keys && keys.size()>0){
             for(String key:keys){
-                Session s = (Session)RedisTemplateUtil.valueGet(key);
+                Session s = (Session) JdkRedisTemplateUtil.valueGet(key);
                 sessions.add(s);
             }
         }
@@ -86,7 +86,7 @@ public class ShiroRedisSessionDAO extends AbstractSessionDAO {
             logger.error("shiro session id is null");
             return null;
         }
-        Session session = (Session) RedisTemplateUtil.valueGet(getStringKey(sessionId));
+        Session session = (Session) JdkRedisTemplateUtil.valueGet(getStringKey(sessionId));
         return session;
     }
 

@@ -53,7 +53,7 @@ public class MybatisRedisCache implements Cache {
     @Override
     public void putObject(Object key, Object value) {
         if(null != value){
-            RedisTemplateUtil.valueSet(MybatisCacheKey.createMybatisCacheKey(key.toString()), value, MYBATIS_CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
+            FastjsonRedisTemplateUtil.valueSet(MybatisCacheKey.createMybatisCacheKey(key.toString()), value, MYBATIS_CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
             logger.debug("Put value to redis:" + value);
         }
     }
@@ -65,7 +65,7 @@ public class MybatisRedisCache implements Cache {
     @Override
     public Object getObject(Object key) {
         logger.debug("Get cached value from redis where key = " + key);
-        Object object = RedisTemplateUtil.valueGet(MybatisCacheKey.createMybatisCacheKey(key.toString()));
+        Object object = FastjsonRedisTemplateUtil.valueGet(MybatisCacheKey.createMybatisCacheKey(key.toString()));
         return object;
     }
 
@@ -85,7 +85,7 @@ public class MybatisRedisCache implements Cache {
     @Override
     public Object removeObject(Object key) {
         logger.debug("Remove cached value from redis where key = " + key);
-        RedisTemplateUtil.delete(MybatisCacheKey.createMybatisCacheKey(key.toString()));
+        FastjsonRedisTemplateUtil.delete(MybatisCacheKey.createMybatisCacheKey(key.toString()));
         return key;
     }
 
@@ -94,7 +94,7 @@ public class MybatisRedisCache implements Cache {
      */
     @Override
     public void clear() {
-        RedisTemplateUtil.getRedisTemp().execute(new RedisCallback<Object>() {
+        FastjsonRedisTemplateUtil.getRedisTemp().execute(new RedisCallback<Object>() {
             @Override
             public Object doInRedis(RedisConnection redisConnection) throws DataAccessException {
                 logger.debug("flush redis");
@@ -112,7 +112,7 @@ public class MybatisRedisCache implements Cache {
     @Override
     public int getSize() {
         String pattern = "[\\s\\S]*";
-        return RedisTemplateUtil.keys(pattern).size();
+        return FastjsonRedisTemplateUtil.keys(pattern).size();
     }
 
     /**

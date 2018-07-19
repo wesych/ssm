@@ -49,17 +49,34 @@
 
     <!-- Redis 序列化 -->
     <bean id="stringRedisSerializer" class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+    <bean id="myJackson2JsonRedisSerializer" class="org.wesc.ssm.dao.cache.MyJackson2JsonRedisSerializer" />
     <bean id="fastjson2JsonRedisSerializer" class="org.wesc.ssm.dao.cache.Fastjson2JsonRedisSerializer">
         <constructor-arg name="clazz" value="java.lang.Object" />
     </bean>
 
-    <!-- Redis 持久化模板，默认序列化工具：JdkSerializationRedisSerializer -->
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+    <!-- Redis 持久化模板, FastJson -->
+    <bean id="fastjsonRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
         <property name="connectionFactory" ref="jedisConnectionFactory"/>
         <property name="keySerializer" ref="stringRedisSerializer"/>
         <property name="valueSerializer" ref="fastjson2JsonRedisSerializer"/>
         <property name="hashKeySerializer" ref="stringRedisSerializer"/>
         <property name="hashValueSerializer" ref="fastjson2JsonRedisSerializer"/>
+    </bean>
+
+    <!-- Redis 持久化模板, Jackson -->
+    <bean id="jacksonRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="valueSerializer" ref="myJackson2JsonRedisSerializer"/>
+        <property name="hashKeySerializer" ref="stringRedisSerializer"/>
+        <property name="hashValueSerializer" ref="myJackson2JsonRedisSerializer"/>
+    </bean>
+
+    <!-- Redis 持久化模板, JDK -->
+    <bean id="jdkRedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+        <property name="keySerializer" ref="stringRedisSerializer"/>
+        <property name="hashKeySerializer" ref="stringRedisSerializer"/>
     </bean>
 
 </beans>
