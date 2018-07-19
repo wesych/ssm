@@ -14,7 +14,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 使用Redis保存会话信息来完成持久化操作.
+ * 使用Redis保存会话信息来完成持久化操作(JDK进行序列化而非Json工具序列化).
  *
  * @author Wesley Cheung
  * @Date Created in 15:44 2017/12/27
