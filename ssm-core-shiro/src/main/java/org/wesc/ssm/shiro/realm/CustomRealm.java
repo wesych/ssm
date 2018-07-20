@@ -1,4 +1,4 @@
-package org.wesc.ssm.shiro;
+package org.wesc.ssm.shiro.realm;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

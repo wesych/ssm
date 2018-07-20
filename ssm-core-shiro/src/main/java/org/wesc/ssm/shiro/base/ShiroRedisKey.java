@@ -1,4 +1,4 @@
-package org.wesc.ssm.shiro;
+package org.wesc.ssm.shiro.base;
 
 import org.wesc.ssm.dao.utils.MD5Util;
 

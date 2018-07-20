@@ -1,4 +1,4 @@
-package org.wesc.ssm.shiro;
+package org.wesc.ssm.shiro.realm;
 
 import org.apache.shiro.codec.Base64;
 import org.apache.shiro.codec.CodecSupport;

@@ -1,4 +1,4 @@
-package org.wesc.ssm.shiro;
+package org.wesc.ssm.shiro.cache;
 
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;
@@ -11,6 +11,7 @@ import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.wesc.ssm.dao.cache.JdkRedisTemplateUtil;
+import org.wesc.ssm.shiro.base.ShiroRedisKey;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;

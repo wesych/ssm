@@ -1,4 +1,4 @@
-package org.wesc.ssm.shiro;
+package org.wesc.ssm.shiro.session;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.UnknownSessionException;
@@ -6,6 +6,7 @@ import org.apache.shiro.session.mgt.eis.AbstractSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.wesc.ssm.dao.cache.JdkRedisTemplateUtil;
+import org.wesc.ssm.shiro.base.ShiroRedisKey;
 
 import java.io.Serializable;
 import java.util.Collection;
