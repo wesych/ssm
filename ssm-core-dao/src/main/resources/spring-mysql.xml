@@ -38,27 +38,40 @@
         <property name="removeAbandoned" value="true" />
         <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
         <property name="logAbandoned" value="true" />
-        <property name="filters" value="stat" />
+        <!-- 监控统计拦截的filters -->
+        <property name="proxyFilters">
+            <list>
+                <ref bean="stat-filter" />
+            </list>
+        </property>
     </bean>
 
-    <!--&lt;!&ndash; 配置druid监控spring jdbc &ndash;&gt;-->
-    <!--<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />-->
+    <!-- 慢SQL记录 -->
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <property name="mergeSql" value="true" />
+        <property name="slowSqlMillis" value="10000" />
+        <property name="logSlowSql" value="true" />
+    </bean>
 
-    <!--<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">-->
-        <!--<property name="patterns">-->
-            <!--<list>-->
-                <!--<value>org.wesc.ssm.service.*</value>-->
-                <!--<value>org.wesc.ssm.dao.mapper.*</value>-->
-            <!--</list>-->
-        <!--</property>-->
-    <!--</bean>-->
 
-    <!--&lt;!&ndash; 开启aop注解支持: 使用Cglib进行代理，因为druid部分需要代理的不是接口, 不适用于JDK动态代理 &ndash;&gt;-->
-    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+    <!-- 配置druid监控spring jdbc -->
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>org.wesc.ssm.service.*</value>
+                <value>org.wesc.ssm.dao.mapper.*</value>
+            </list>
+        </property>
+    </bean>
 
-    <!--<aop:config>-->
-        <!--<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />-->
-    <!--</aop:config>-->
+    <!-- 开启aop注解@AspectJ支持 -->
+    <aop:aspectj-autoproxy />
+
+    <!-- 使用cglib进行动态代理，部分非接口代理jdk不支持 -->
+    <aop:config proxy-target-class="true">
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
+    </aop:config>
 
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />

@@ -48,6 +48,7 @@
         <guava.version>25.1-jre</guava.version>
         <poi.version>3.17</poi.version>
         <cglib.version>3.2.7</cglib.version>
+        <aspectj.version>1.9.1</aspectj.version>
     </properties>
 
     <!--版本管理，实际不下载-->
@@ -335,12 +336,29 @@
                 <version>${poi.version}</version>
             </dependency>
 
-            <!-- CGLIB -->
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>${cglib.version}</version>
-            </dependency>
+                <!-- AOP动态代理：CGLIB，spring aop会使用到 -->
+                <dependency>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                    <version>${cglib.version}</version>
+                </dependency>
+
+                <!-- AOP静态代理：aspectj -->
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjweaver</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjrt</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.aspectj</groupId>
+                    <artifactId>aspectjtools</artifactId>
+                    <version>${aspectj.version}</version>
+                </dependency>
 
         </dependencies>
     </dependencyManagement>
