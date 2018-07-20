@@ -43,10 +43,12 @@
 
     <!-- 启用注解 -->
     <!-- 注册AutowiredAnnotationBeanPostProcessor、RequiredAnnotationBeanPostProcessor、CommonAnnotationBeanPostProcessor、PersistenceAnnotationBeanPostProcessor四个bean -->
-    <context:annotation-config/>
+    <context:annotation-config />
 
-    <!-- 设置使用注解的类所在的jar包 -->
-    <context:component-scan base-package="org.wesc.ssm.portal.controller"></context:component-scan>
+    <!-- SpringMVC只扫描@Controller -->
+    <context:component-scan base-package="org.wesc.ssm.portal.controller">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
 
     <!-- 完成请求和注解POJO的映射 -->
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
@@ -63,12 +65,23 @@
           p:viewClass="org.springframework.web.servlet.view.JstlView"
     />
 
-    <!-- I18N -->
+    <!-- 区域解析器(每个DispatchServlet只能注册一个)：区域信息保存在session中 -->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
         <property name="defaultLocale" value="zh_CN" />
     </bean>
 
     <!-- 静态资源 -->
     <mvc:resources location="/static/" mapping="/static/**" />
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <!-- 区域拦截器：拦截所有请求 -->
+        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+
+        <!-- 自定义通用拦截器：拦截所有请求 -->
+        <bean class="org.wesc.ssm.portal.interceptor.CommonInterceptor" />
+    </mvc:interceptors>
 
 </beans>

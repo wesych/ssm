@@ -7,13 +7,19 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- ComponentScan -->
+    <!-- portal module: 扫描除去@Controller的注解，@Controller注解由springMVC进行处理 -->
     <context:component-scan base-package="org.wesc.ssm.portal">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
+
+    <!-- service module: 只扫描@Service -->
     <context:component-scan base-package="org.wesc.ssm.service">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
     </context:component-scan>
+
+    <!-- shiro module: 只扫描@Service -->
     <context:component-scan base-package="org.wesc.ssm.shiro">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
     </context:component-scan>
 
 </beans>

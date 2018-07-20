@@ -4,13 +4,11 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
        xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
-        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 启用注解 -->
     <context:annotation-config/>
@@ -55,9 +53,10 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
 
-    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
+    <!-- 支持事务注解@Transactional，事务管理id为默认的'transactionManager'时不需要配置transaction-manager属性，否则需要 -->
+    <tx:annotation-driven />
 
-    <!--<tx:annotation-driven transaction-manager="transactionManager" />-->
+    <!--<aop:aspectj-autoproxy proxy-target-class="true" />-->
 
 
     <!-- FlywayDB ( default location is classPath:db/migration)-->

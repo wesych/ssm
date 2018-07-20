@@ -1,12 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ include file="common.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>几遇 - 遇见是一种美好</title>
-    <link rel="shortcut icon" type="image/x-icon" href="${basePath}/static/images/ameet.ico" />
-    <link rel="stylesheet" type="text/css" href="${basePath}/static/style/register-login.css">
+    <link rel="shortcut icon" type="image/x-icon" href="${contextPath}/static/images/ameet.ico" />
+    <link rel="stylesheet" type="text/css" href="${contextPath}/static/style/register-login.css">
 </head>
 <body>
 <div id="box"></div>
@@ -58,14 +57,14 @@
     <p>几遇随笔 · 几遇咖啡 · 几遇电影 · 几遇音乐 · 几遇旅游</p>
 </div>
 
-<script src='${basePath}/static/js/particles.js' type="text/javascript"></script>
-<script src='${basePath}/static/js/background.js' type="text/javascript"></script>
-<script src='${basePath}/static/js/jquery.min.js' type="text/javascript"></script>
-<script src='${basePath}/static/layer/layer.js' type="text/javascript"></script>
-<script src='${basePath}/static/js/signin.js' type="text/javascript"></script>
-<script src='${basePath}/static/js/md5.min.js' type="text/javascript"></script>
+<script src='${contextPath}/static/js/particles.js' type="text/javascript"></script>
+<script src='${contextPath}/static/js/background.js' type="text/javascript"></script>
+<script src='${contextPath}/static/js/jquery.min.js' type="text/javascript"></script>
+<script src='${contextPath}/static/layer/layer.js' type="text/javascript"></script>
+<script src='${contextPath}/static/js/signin.js' type="text/javascript"></script>
+<script src='${contextPath}/static/js/md5.min.js' type="text/javascript"></script>
 <script>
-    var contextPath='<%=request.getContextPath()%>';
+    var contextPath='${contextPath}';
 </script>
 </body>
 </html>
