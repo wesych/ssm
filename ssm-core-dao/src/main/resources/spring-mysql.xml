@@ -65,9 +65,6 @@
         </property>
     </bean>
 
-    <!-- 开启aop注解@AspectJ支持 -->
-    <aop:aspectj-autoproxy />
-
     <!-- 使用cglib进行动态代理，部分非接口代理jdk不支持 -->
     <aop:config proxy-target-class="true">
         <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
