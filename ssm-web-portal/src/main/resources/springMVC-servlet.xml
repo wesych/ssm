@@ -70,18 +70,26 @@
         <property name="defaultLocale" value="zh_CN" />
     </bean>
 
-    <!-- 静态资源 -->
+    <!-- 静态资源：DispatchServlet不会拦截 -->
     <mvc:resources location="/static/" mapping="/static/**" />
 
-    <!-- 拦截器 -->
+    <!-- 拦截器:只能对Controller请求进行拦截，对一些静态资源无法拦截 -->
     <mvc:interceptors>
         <!-- 区域拦截器：拦截所有请求 -->
         <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="lang" />
         </bean>
 
-        <!-- 自定义通用拦截器：拦截所有请求 -->
+        <!-- 通用拦截器：拦截所有请求 -->
         <bean class="org.wesc.ssm.portal.interceptor.CommonInterceptor" />
+
+        <!-- 日志拦截器：不对静态资源进行拦截 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/static/**" />
+            <bean class="org.wesc.ssm.portal.interceptor.LogInterceptor" />
+        </mvc:interceptor>
+
     </mvc:interceptors>
 
 </beans>

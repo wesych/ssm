@@ -124,6 +124,12 @@
             <artifactId>commons-dbcp2</artifactId>
         </dependency>
 
+        <!--Druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+
         <!-- MYBATIS -->
         <dependency>
             <groupId>org.mybatis</groupId>
