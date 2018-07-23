@@ -62,6 +62,7 @@
 <script src='${contextPath}/static/js/signup.js' type="text/javascript"></script>
 <script>
     var contextPath='${contextPath}';
+    var apiUrl='${apiUrl}';
 </script>
 
 </body>

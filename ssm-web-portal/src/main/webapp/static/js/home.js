@@ -7,7 +7,7 @@ function homeController($scope, $http) {
      * 从后台获取数据
      */
     $scope.loadData = function () {
-        $http.get(contextPath + "/getUser", {
+        $http.get(apiUrl + "/getUser", {
             params: {
                 "var1": "AAAA",
                 "var2": "BBBB"
@@ -24,7 +24,7 @@ function homeController($scope, $http) {
      */
     $scope.logout = function () {
         $.ajax({
-            url: contextPath + "/logout",
+            url: apiUrl + "/logout",
             type: "post",
             dataType: "json",
             data: {

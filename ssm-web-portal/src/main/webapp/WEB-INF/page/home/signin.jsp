@@ -65,6 +65,7 @@
 <script src='${contextPath}/static/js/md5.min.js' type="text/javascript"></script>
 <script>
     var contextPath='${contextPath}';
+    var apiUrl='${apiUrl}';
 </script>
 </body>
 </html>

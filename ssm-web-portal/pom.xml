@@ -23,10 +23,10 @@
     </properties>
 
     <dependencies>
-        <!-- API -->
+        <!-- shiro-module -->
         <dependency>
             <groupId>org.wesc</groupId>
-            <artifactId>ssm-core-api</artifactId>
+            <artifactId>ssm-core-shiro</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 

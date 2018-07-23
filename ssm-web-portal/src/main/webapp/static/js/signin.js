@@ -92,7 +92,7 @@ function doSignIn() {
     console.log("new:" + password);*/
 
     $.ajax({
-        url: contextPath + "/doSignIn",
+        url: apiUrl + "/doSignIn",
         type: "post",
         dataType: "json",
         data: {
@@ -130,7 +130,7 @@ function doSignIn() {
             }
         },
         error: function() {
-            layer.msg('Failed to convert String to Json');
+            layer.msg('接口调用失败');
         }
     });
 

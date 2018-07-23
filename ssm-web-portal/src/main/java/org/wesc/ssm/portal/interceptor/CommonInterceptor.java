@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Spring MVC通用拦截器，用于在ModelAndView增加contextPath等属性.
+ * Spring MVC通用拦截器，用于在ModelAndView增加contextPath, apiUrl等属性.
  *
  * @Auther: Wesley Cheung
  * @Date: 2018/7/20 12:13
@@ -19,6 +19,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
 
     private static final String BUILD_TIMESTAMP = "buildTimestamp";
     private static final String CONTEXT_PATH = "contextPath";
+    private static final String API_URL = "apiUrl";
 
     private static String buildTimestamp;
 
@@ -56,6 +57,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
         if (modelAndView != null && !modelAndView.getViewName().startsWith("redirect:")) {
             modelAndView.addObject(BUILD_TIMESTAMP, buildTimestamp);
             modelAndView.addObject(CONTEXT_PATH, request.getContextPath());
+            modelAndView.addObject(API_URL, parseApiUrl(request.getContextPath()));
         }
     }
 
@@ -80,4 +82,17 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response,
                                                Object handler) throws Exception {
     }
+
+    /**
+     * 根据contextPath来解析api地址(临时方法)
+     * TODO: 地址元素应该配置在properties文件中，正式部署时的项目名和开发时的项目名不一致@
+     * @param contextPath
+     * @return
+     */
+    private String parseApiUrl(String contextPath) {
+        int index = contextPath.lastIndexOf("-");
+        String sub = contextPath.substring(0, index);
+        return sub.substring(0, sub.lastIndexOf("-")) + "-core-api";
+    }
+
 }

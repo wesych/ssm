@@ -57,6 +57,7 @@
     <script src='${contextPath}/static/js/home.js' type="text/javascript"></script>
     <script>
         var contextPath='${contextPath}';
+        var apiUrl='${apiUrl}';
     </script>
 </body>
 </html>

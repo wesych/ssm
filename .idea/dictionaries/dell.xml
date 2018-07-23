@@ -2,12 +2,17 @@
   <dictionary name="dell">
     <words>
       <w>alibaba</w>
+      <w>durid</w>
       <w>fastjson</w>
       <w>jedis</w>
+      <w>jstl</w>
       <w>mymaster</w>
       <w>querymapper</w>
       <w>rememberme</w>
       <w>shiro</w>
+      <w>signin</w>
+      <w>signup</w>
+      <w>springmvc</w>
       <w>wesc</w>
     </words>
   </dictionary>

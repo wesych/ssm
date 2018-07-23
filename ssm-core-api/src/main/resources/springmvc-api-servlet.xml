@@ -54,7 +54,7 @@
     <context:annotation-config />
 
     <!-- SpringMVC只扫描@Controller -->
-    <context:component-scan base-package="org.wesc.ssm.portal.controller">
+    <context:component-scan base-package="org.wesc.ssm.api">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
@@ -87,20 +87,6 @@
         <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="lang" />
         </bean>
-
-        <!-- 通用拦截器：不对静态资源进行拦截 -->
-        <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <mvc:exclude-mapping path="/static/**" />
-            <bean class="org.wesc.ssm.portal.interceptor.CommonInterceptor" />
-        </mvc:interceptor>
-
-        <!-- 日志拦截器：不对静态资源进行拦截 -->
-        <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <mvc:exclude-mapping path="/static/**" />
-            <bean class="org.wesc.ssm.portal.interceptor.LogInterceptor" />
-        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 开启aop注解@Aspect支持, 使Spring采用CGLIB代理 -->

@@ -14,7 +14,7 @@ var emailExist;
 function checkUniqueness(data, field) {
     $.ajax({
         async: false,
-        url : contextPath + "/checkUniqueness",
+        url : apiUrl + "/checkUniqueness",
         type : "POST",
         data : data,
         dataType : 'json',
@@ -203,7 +203,7 @@ function doSignUp() {
 
     // Sign Up
     $.ajax({
-        url: contextPath + "/doSignUp",
+        url: apiUrl + "/doSignUp",
         type: "post",
         dataType: "json",
         data: {
@@ -228,7 +228,7 @@ function doSignUp() {
             }
         },
         error: function() {
-            layer.msg('Failed to convert String to Json');
+            layer.msg('接口调用失败');
         }
     });
 }

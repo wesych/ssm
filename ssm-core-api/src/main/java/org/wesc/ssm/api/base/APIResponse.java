@@ -11,20 +11,10 @@ import com.alibaba.fastjson.JSONObject;
  */
 public class APIResponse {
 
-    /** 返回代码：成功.*/
-    public static final int RESPONSE_SUCCESS = 0;
-
-    /** 返回代码：失败.*/
-    public static final int RESPONSE_ERROR = 1;
-
-    /** 返回代码：需要登录（失败）. */
-    public static final int RESPONSE_REQUIRE_LOGIN = 9;
-
-
-    /** 返回代码，0为成功，其他为失败. */
+    /** 返回代码 */
     private int result;
 
-    /** 返回消息. */
+    /** 返回消息 */
     private String message;
 
     /** 其他数据 */
@@ -65,12 +55,20 @@ public class APIResponse {
 
     /**
      * 创建接口调用成功的返回格式
+     * @return
+     */
+    public static APIResponse createSuccessResponse() {
+        return createSuccessResponse(null);
+    }
+
+    /**
+     * 创建接口调用成功的返回格式
      * @param data
      * @return
      */
     public static APIResponse createSuccessResponse(Object data) {
         APIResponse resp = new APIResponse();
-        resp.setResult(RESPONSE_SUCCESS);
+        resp.setResult(StatusCode.RESPONSE_SUCCESS);
         resp.setMessage("Success");
         resp.setData(data);
         return resp;
@@ -83,7 +81,7 @@ public class APIResponse {
      */
     public static APIResponse createFailResponse(String message) {
         APIResponse resp = new APIResponse();
-        resp.setResult(RESPONSE_ERROR);
+        resp.setResult(StatusCode.RESPONSE_ERROR);
         resp.setMessage(message);
         return resp;
     }
@@ -95,7 +93,7 @@ public class APIResponse {
      */
     public static APIResponse createFailLoginResponse(String message) {
         APIResponse resp = new APIResponse();
-        resp.setResult(RESPONSE_REQUIRE_LOGIN);
+        resp.setResult(StatusCode.RESPONSE_ERROR_REQUIRE_LOGIN);
         resp.setMessage(message);
         return resp;
     }

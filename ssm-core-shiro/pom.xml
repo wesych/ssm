@@ -22,7 +22,7 @@
     </properties>
 
     <dependencies>
-        <!-- Service -->
+        <!-- service-module -->
         <dependency>
             <groupId>org.wesc</groupId>
             <artifactId>ssm-core-service</artifactId>

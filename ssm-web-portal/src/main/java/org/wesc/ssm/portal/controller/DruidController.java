@@ -2,17 +2,14 @@ package org.wesc.ssm.portal.controller;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/druid")
 public class DruidController {
 
     @RequestMapping("/index")
-    public String index(Model model, HttpServletRequest request) {
+    public String index() {
         return "durid/index";
     }
 

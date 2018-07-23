@@ -49,6 +49,7 @@
         <poi.version>3.17</poi.version>
         <cglib.version>3.2.7</cglib.version>
         <aspectj.version>1.9.1</aspectj.version>
+        <axis2.version>1.7.8</axis2.version>
     </properties>
 
     <!--版本管理，实际不下载-->
@@ -133,6 +134,11 @@
             </dependency>
 
             <!--Spring-->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-webmvc</artifactId>
@@ -336,29 +342,61 @@
                 <version>${poi.version}</version>
             </dependency>
 
-                <!-- AOP动态代理：CGLIB，spring aop会使用到 -->
-                <dependency>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
-                    <version>${cglib.version}</version>
-                </dependency>
+            <!-- AOP动态代理：CGLIB，spring aop会使用到 -->
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
+            </dependency>
 
-                <!-- AOP静态代理：aspectj -->
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>
-                    <version>${aspectj.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjrt</artifactId>
-                    <version>${aspectj.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjtools</artifactId>
-                    <version>${aspectj.version}</version>
-                </dependency>
+            <!-- AOP静态代理：aspectj -->
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjtools</artifactId>
+                <version>${aspectj.version}</version>
+            </dependency>
+
+            <!-- AXIS2 -->
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-kernel</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-transport-http</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-adb</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-transport-local</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-spring</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
