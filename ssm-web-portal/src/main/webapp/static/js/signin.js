@@ -101,7 +101,7 @@ function doSignIn() {
             rememberme:document.getElementById("remember-me").checked
         },
         success: function(resp) {
-            if (resp && resp.result == 1) {
+            if (resp && resp.result == 200) {
                 window.location.href = contextPath + "/index";
             } else {
                 var msg='系统故障';

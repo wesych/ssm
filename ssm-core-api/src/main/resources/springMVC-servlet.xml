@@ -87,6 +87,13 @@
         <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="lang" />
         </bean>
+
+        <!-- 日志拦截器：不对静态资源进行拦截 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/static/**" />
+            <bean class="org.wesc.ssm.api.interceptor.LogApiInterceptor" />
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 开启aop注解@Aspect支持, 使Spring采用CGLIB代理 -->

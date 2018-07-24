@@ -23,6 +23,27 @@
     </properties>
 
     <dependencies>
+        <!-- utils-module -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-common-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- dao-module -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-core-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- service-module -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-core-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- shiro-module -->
         <dependency>
             <groupId>org.wesc</groupId>
@@ -39,6 +60,10 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
 
         <!-- JAVA -->
         <dependency>
@@ -51,26 +76,26 @@
         </dependency>
 
         <!-- AXIS2 -->
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-kernel</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-transport-http</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-adb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-spring</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.axis2</groupId>
-            <artifactId>axis2-transport-local</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-kernel</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-transport-http</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-adb</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-spring</artifactId>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.axis2</groupId>-->
+            <!--<artifactId>axis2-transport-local</artifactId>-->
+        <!--</dependency>-->
         
     </dependencies>
 

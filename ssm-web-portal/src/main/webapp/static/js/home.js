@@ -1,19 +1,29 @@
-angular.module('ameet_home_module', [])
-    .controller('homeController', homeController);
+angular.module('home_module', []).controller('homeController', homeController);
 
-function homeController($scope, $http) {
+function homeController($scope) {
+    $scope.dataList = [];
 
     /**
      * 从后台获取数据
      */
     $scope.loadData = function () {
-        $http.get(apiUrl + "/getUser", {
-            params: {
-                "var1": "AAAA",
-                "var2": "BBBB"
+        $.ajax({
+            url: apiUrl + "/user/listAll",
+            type: "post",
+            dataType: "json",
+            data: {
+            },
+            success: function(resp) {
+                if (resp && resp.result == 200) {
+                    $scope.dataList = resp.data;
+                    $scope.$apply();
+                } else {
+                    layer.msg('获取用户列表失败');
+                }
+            },
+            error: function() {
+                layer.msg('获取用户列表失败');
             }
-        }).success(function (data) {
-            $scope.userList = data;
         });
     };
 
@@ -30,7 +40,7 @@ function homeController($scope, $http) {
             data: {
             },
             success: function(resp) {
-                if (resp && resp.result == 1) {
+                if (resp && resp.result == 200) {
                     window.location.reload();
                 }
             },

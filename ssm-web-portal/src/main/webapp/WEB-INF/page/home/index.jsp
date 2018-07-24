@@ -8,8 +8,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="${contextPath}/static/images/ameet.ico" />
     <link rel="stylesheet" type="text/css" href="${contextPath}/static/bootstrap/css/bootstrap.css">
 </head>
-<body ng-app="ameet_home_module" ng-controller="homeController" ng-cloak class="ng-cloak">
-    Welcome to JIYU!<br/>
+<body ng-app="home_module" ng-controller="homeController" ng-cloak class="ng-cloak">
+    Welcome to SSM!<br/>
 
     <shiro:guest>
         您当前是游客，<a href="signin">登录</a><a href="signup">注册</a><br/>
@@ -21,7 +21,7 @@
         当前身份未认证（包括记住我登录的）<br/>
     </shiro:notAuthenticated>
     <shiro:user>
-        欢迎[<shiro:principal property="account"/>]，<a ng-click="logout()">退出</a><br/>
+        欢迎[<shiro:principal property="account"/>]，<a v-on:click="logout()">退出</a><br/>
         <table class="table">
             <caption>基本的表格布局</caption>
             <thead>
@@ -36,7 +36,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="row in userList">
+            <tr ng-repeat="row in dataList">
                 <td>{{row.account}}</td>
                 <td>{{row.nickname}}</td>
                 <td>{{row.mobile}}</td>
@@ -51,7 +51,7 @@
 
 
     <script src='${contextPath}/static/js/jquery.min.js' type="text/javascript"></script>
-    <script src='${contextPath}/static/js/angular.min.js' type="text/javascript"></script>
+    <script src='${contextPath}/static/js/angular.js' type="text/javascript"></script>
     <script src='${contextPath}/static/bootstrap/js/bootstrap.min.js' type="text/javascript"></script>
     <script src='${contextPath}/static/layer/layer.js' type="text/javascript"></script>
     <script src='${contextPath}/static/js/home.js' type="text/javascript"></script>

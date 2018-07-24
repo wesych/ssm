@@ -1,4 +1,4 @@
-package org.wesc.ssm.portal.interceptor;
+package org.wesc.ssm.api.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 
 /**
- * 日志拦截器
+ * Log显示接口调用信息.
  *
  * @Auther: Wesley Cheung
- * @Date: 2018/7/20 16:16
+ * @Date: 2018/7/24 11:05
  */
-public class LogInterceptor extends HandlerInterceptorAdapter {
-
-    private static Logger logger = LoggerFactory.getLogger(LogInterceptor.class);
+public class LogApiInterceptor extends HandlerInterceptorAdapter {
+    private static Logger logger = LoggerFactory.getLogger(LogApiInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -27,9 +26,12 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
         StringBuilder sb = new StringBuilder();
 
         String uri = request.getRequestURI();
-        sb.append("Visited URI: ").append(uri).append(" - ");
+        sb.append("API Called: ").append(uri);
 
         Enumeration<String> enums = request.getParameterNames();
+        if (enums.hasMoreElements()) {
+            sb.append(" - ");
+        }
         while (enums.hasMoreElements()) {
             String key = enums.nextElement();
             sb.append("\"").append(key).append("\":").append(
@@ -54,4 +56,5 @@ public class LogInterceptor extends HandlerInterceptorAdapter {
     public void afterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response,
                                                Object handler) throws Exception {
     }
+
 }
