@@ -94,6 +94,12 @@
             <mvc:exclude-mapping path="/static/**" />
             <bean class="org.wesc.ssm.api.interceptor.LogApiInterceptor" />
         </mvc:interceptor>
+
+        <!-- 重复提交拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.wesc.ssm.api.interceptor.SameUrlDataInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
     <!-- 开启aop注解@Aspect支持, 使Spring采用CGLIB代理 -->
