@@ -12,7 +12,7 @@
     Welcome to SSM!<br/>
 
     <shiro:guest>
-        您当前是游客，<a href="signin">登录</a><a href="signup">注册</a><br/>
+        您当前是游客，<br/><a href="signin">登录</a> <br/><a href="signup">注册</a><br/>
     </shiro:guest>
     <shiro:authenticated>
         用户[<shiro:principal property="mobile"/>]已通过身份验证<br/>
@@ -21,7 +21,7 @@
         当前身份未认证（包括记住我登录的）<br/>
     </shiro:notAuthenticated>
     <shiro:user>
-        欢迎[<shiro:principal property="account"/>]，<a v-on:click="logout()">退出</a><br/>
+        欢迎[<shiro:principal property="account"/>]，<a ng-click="logout()" >退出</a><br/>
         <table class="table">
             <caption>基本的表格布局</caption>
             <thead>

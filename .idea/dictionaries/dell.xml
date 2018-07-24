@@ -2,6 +2,7 @@
   <dictionary name="dell">
     <words>
       <w>alibaba</w>
+      <w>cors</w>
       <w>durid</w>
       <w>fastjson</w>
       <w>jedis</w>
@@ -13,6 +14,7 @@
       <w>signin</w>
       <w>signup</w>
       <w>springmvc</w>
+      <w>thetransactioncompany</w>
       <w>wesc</w>
     </words>
   </dictionary>

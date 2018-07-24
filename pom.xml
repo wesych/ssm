@@ -50,7 +50,6 @@
         <poi.version>3.17</poi.version>
         <cglib.version>3.2.7</cglib.version>
         <aspectj.version>1.9.1</aspectj.version>
-        <axis2.version>1.7.8</axis2.version>
     </properties>
 
     <!--版本管理，实际不下载-->
@@ -373,36 +372,16 @@
                 <version>${aspectj.version}</version>
             </dependency>
 
-            <!-- AXIS2 -->
+            <!-- CORS -->
             <dependency>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2</artifactId>
-                <version>${axis2.version}</version>
+                <groupId>com.thetransactioncompany</groupId>
+                <artifactId>cors-filter</artifactId>
+                <version>2.6</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-kernel</artifactId>
-                <version>${axis2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-transport-http</artifactId>
-                <version>${axis2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-adb</artifactId>
-                <version>${axis2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-transport-local</artifactId>
-                <version>${axis2.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.axis2</groupId>
-                <artifactId>axis2-spring</artifactId>
-                <version>${axis2.version}</version>
+                <groupId>com.thetransactioncompany</groupId>
+                <artifactId>java-property-utils</artifactId>
+                <version>1.13</version>
             </dependency>
 
         </dependencies>
