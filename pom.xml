@@ -50,6 +50,7 @@
         <poi.version>3.17</poi.version>
         <cglib.version>3.2.7</cglib.version>
         <aspectj.version>1.9.1</aspectj.version>
+        <tiles.version>3.0.8</tiles.version>
     </properties>
 
     <!--版本管理，实际不下载-->
@@ -382,6 +383,13 @@
                 <groupId>com.thetransactioncompany</groupId>
                 <artifactId>java-property-utils</artifactId>
                 <version>1.13</version>
+            </dependency>
+
+            <!-- Apache Tiles -->
+            <dependency>
+                <groupId>org.apache.tiles</groupId>
+                <artifactId>tiles-extras</artifactId>
+                <version>${tiles.version}</version>
             </dependency>
 
         </dependencies>
