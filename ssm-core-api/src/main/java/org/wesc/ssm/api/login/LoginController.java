@@ -3,7 +3,6 @@ package org.wesc.ssm.api.login;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +14,8 @@ import org.wesc.ssm.api.interceptor.AntiRepeat;
 import org.wesc.ssm.dao.entity.User;
 import org.wesc.ssm.service.user.UserService;
 import org.wesc.ssm.shiro.realm.PasswordHelper;
+import org.wesc.ssm.shiro.service.LoginResult;
+import org.wesc.ssm.shiro.service.LoginService;
 import org.wesc.ssm.utils.tool.RandomIdentity;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,9 @@ public class LoginController {
     @Autowired
     private PasswordHelper passwordHelper;
 
+    @Autowired
+    private LoginService loginService;
+
     /**
      * 登录
      * @return
@@ -45,30 +49,11 @@ public class LoginController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("rememberme") boolean rememberme) {
-        Subject currentUser = SecurityUtils.getSubject();
-        if (!currentUser.isAuthenticated()) {
-            UsernamePasswordToken token = new UsernamePasswordToken(username,password);
-            token.setRememberMe(rememberme);
-            try {
-                currentUser.login(token);
-                logger.info("用户" + username + "登录成功");
-                return APIResponse.createSuccessResponse(token);
-            } catch (UnknownAccountException ex) {
-                logger.info("账号不存在");
-                return APIResponse.createFailResponse("ACCOUNT");
-            } catch (IncorrectCredentialsException ex) {
-                logger.info("密码错误");
-                return APIResponse.createFailResponse("PASSWORD");
-            } catch (LockedAccountException ex) {
-                logger.info(username + "：此账号已被锁定");
-                return APIResponse.createFailResponse("LOCKED");
-            } catch (AuthenticationException ex) {
-                logger.info("没有权限");
-                return APIResponse.createFailResponse("AUTH");
-            }
+        LoginResult result = loginService.doLogin(username, password, rememberme);
+        if (result.isSuccess()) {
+            return APIResponse.createSuccessResponse(result.getToken());
         } else {
-            logger.info("系统故障：已验证用户无法再次登录或注册");
-            return APIResponse.createFailResponse("SYSTEM BUG FOUND");
+            return APIResponse.createFailResponse(result.getMessage());
         }
     }
 
