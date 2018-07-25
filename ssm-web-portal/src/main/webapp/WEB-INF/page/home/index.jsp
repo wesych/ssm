@@ -36,7 +36,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="row in dataList">
+            <tr ng-repeat="row in dataList track by $index">
                 <td>{{row.account}}</td>
                 <td>{{row.nickname}}</td>
                 <td>{{row.mobile}}</td>
@@ -51,8 +51,8 @@
 
 
     <script src='${contextPath}/static/js/jquery.min.js' type="text/javascript"></script>
-    <script src='${contextPath}/static/js/angular.js' type="text/javascript"></script>
     <script src='${contextPath}/static/bootstrap/js/bootstrap.min.js' type="text/javascript"></script>
+    <script src='${contextPath}/static/js/angular.js' type="text/javascript"></script>
     <script src='${contextPath}/static/layer/layer.js' type="text/javascript"></script>
     <script src='${contextPath}/static/js/home.js' type="text/javascript"></script>
     <script>

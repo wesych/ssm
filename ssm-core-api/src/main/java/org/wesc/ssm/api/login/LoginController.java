@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wesc.ssm.api.base.APIResponse;
+import org.wesc.ssm.api.interceptor.AntiRepeat;
 import org.wesc.ssm.dao.entity.User;
 import org.wesc.ssm.service.user.UserService;
 import org.wesc.ssm.shiro.realm.PasswordHelper;
@@ -39,6 +40,7 @@ public class LoginController {
      */
     @RequestMapping("/doSignIn")
     @ResponseBody
+    @AntiRepeat
     public APIResponse doSignIn(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
@@ -76,6 +78,7 @@ public class LoginController {
      */
     @RequestMapping("/doSignUp")
     @ResponseBody
+    @AntiRepeat
     public APIResponse doSignUp(
             @RequestParam("nickname") String nickname,
             @RequestParam("mobile") String mobile,

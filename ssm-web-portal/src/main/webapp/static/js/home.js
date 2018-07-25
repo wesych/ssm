@@ -15,7 +15,7 @@ function homeController($scope) {
             },
             success: function(resp) {
                 if (resp && resp.result == 200) {
-                    $scope.dataList = resp.data;
+                    $scope.dataList = resp.data.data;
                     $scope.$apply();
                 } else {
                     layer.msg('获取用户列表失败');

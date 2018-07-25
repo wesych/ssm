@@ -27,8 +27,10 @@ public class UserController {
     @ResponseBody
     public APIResponse listAll() {
         List<User> users = userService.findAllUser();
+
         JSONObject resp = new JSONObject();
         resp.put("data", users);
+        resp.put("count", users.size());
         return APIResponse.createSuccessResponse(resp);
     }
 }

@@ -98,7 +98,7 @@
         <!-- 重复提交拦截器 -->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="org.wesc.ssm.api.interceptor.SameUrlDataInterceptor"/>
+            <bean class="org.wesc.ssm.api.interceptor.RepeatDataInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
