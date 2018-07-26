@@ -2,21 +2,19 @@ package org.wesc.ssm.api.login;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.wesc.ssm.api.base.APIResponse;
 import org.wesc.ssm.api.interceptor.AntiRepeat;
 import org.wesc.ssm.dao.entity.User;
+import org.wesc.ssm.service.exception.ServiceException;
 import org.wesc.ssm.service.user.UserService;
-import org.wesc.ssm.shiro.realm.PasswordHelper;
 import org.wesc.ssm.shiro.service.LoginResult;
-import org.wesc.ssm.shiro.service.LoginService;
-import org.wesc.ssm.utils.tool.RandomIdentity;
+import org.wesc.ssm.shiro.service.SignService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,10 +31,7 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
-    private PasswordHelper passwordHelper;
-
-    @Autowired
-    private LoginService loginService;
+    private SignService signService;
 
     /**
      * 登录
@@ -49,7 +44,7 @@ public class LoginController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("rememberme") boolean rememberme) {
-        LoginResult result = loginService.doLogin(username, password, rememberme);
+        LoginResult result = signService.signIn(username, password, rememberme);
         if (result.isSuccess()) {
             return APIResponse.createSuccessResponse(result.getToken());
         } else {
@@ -69,19 +64,7 @@ public class LoginController {
             @RequestParam("mobile") String mobile,
             @RequestParam("password") String password){
         try {
-            String account = "jy_" + RandomIdentity.createRandomNumeric(10);
-            while (userService.findAllAccounts().contains(account)) {
-                account = "jy_" + RandomIdentity.createRandomNumeric(10);
-            }
-            User user = new User();
-            user.setAccount(account);
-            user.setMobile(mobile);
-            user.setPassword(password);
-            user.setNickname(nickname);
-            passwordHelper.encryptPassword(user);
-
-            userService.addUser(user);
-
+            User user = signService.signUp(nickname, mobile, password);
             return APIResponse.createSuccessResponse(user);
         } catch (Exception e) {
             return APIResponse.createFailResponse(e.getMessage());
@@ -93,11 +76,13 @@ public class LoginController {
      */
     @RequestMapping(value={"/logout"})
     @ResponseBody
-    public APIResponse logout(){
-        Subject subject = SecurityUtils.getSubject();
-        logger.info("用户" + ((User)subject.getPrincipal()).getAccount() + "退出登录");
-        subject.logout(); // session 会销毁，在SessionListener监听session销毁，清理权限缓存
-        return APIResponse.createSuccessResponse();
+    public APIResponse logout() {
+        try {
+            signService.logout();
+            return APIResponse.createSuccessResponse();
+        } catch (ServiceException e) {
+            return APIResponse.createFailResponse(e.getMessage());
+        }
     }
 
     /**
@@ -110,13 +95,13 @@ public class LoginController {
         String account = request.getParameter("account");
         String mobile = request.getParameter("mobile");
         String email = request.getParameter("email");
-        if (account != null && userService.findAllAccounts().contains(account)){
+        if (!StringUtils.isEmpty(account) && userService.findAllAccounts().contains(account)){
             return APIResponse.createFailResponse("account exists");
         }
-        if (mobile != null && userService.findAllMobiles().contains(mobile)){
+        if (!StringUtils.isEmpty(mobile) && userService.findAllMobiles().contains(mobile)){
             return APIResponse.createFailResponse("mobile exists");
         }
-        if (email != null && userService.findAllEmails().contains(email)){
+        if (!StringUtils.isEmpty(email) && userService.findAllEmails().contains(email)){
             return APIResponse.createFailResponse("email exists");
         }
         return APIResponse.createSuccessResponse();

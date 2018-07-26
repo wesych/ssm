@@ -17,7 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Description:
+ * 用户服务类
+ *
  * @Auther: Wesley Cheung
  * @Date: 2018/7/10 20:41
  */

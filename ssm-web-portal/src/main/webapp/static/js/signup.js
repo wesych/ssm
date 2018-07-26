@@ -19,7 +19,7 @@ function checkUniqueness(data, field) {
         data : data,
         dataType : 'json',
         success : function(resp) {
-            if(resp.result == 0){
+            if(resp.result != 200){
                 if(field == 'ACCOUNT'){
                     accountExist = true;
                 }
