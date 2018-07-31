@@ -24,9 +24,56 @@
     </properties>
 
     <dependencies>
+        <!-- utils-module -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-common-utils</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- dao-module -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-core-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- service-module -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-core-service</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- shiro-module -->
+        <dependency>
+            <groupId>org.wesc</groupId>
+            <artifactId>ssm-core-shiro</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
+
+        <!-- JAVA -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
         </dependency>
     </dependencies>
 
