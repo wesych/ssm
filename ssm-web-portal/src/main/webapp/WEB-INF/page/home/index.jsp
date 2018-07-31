@@ -43,7 +43,7 @@
                 <td>{{row.email}}</td>
                 <td>{{row.gender == 1 ? '男' : '女'}}</td>
                 <td>{{row.city}}</td>
-                <td>{{row.birth | date:'yyyy-MM-dd'}}</td>
+                <td>{{row.birth}}</td>
             </tr>
             </tbody>
         </table>
