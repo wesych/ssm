@@ -92,7 +92,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     private String parseApiUrl(String contextPath) {
         int index = contextPath.lastIndexOf("-");
         String sub = contextPath.substring(0, index);
-        return sub.substring(0, sub.lastIndexOf("-")) + "-core-api";
+        return sub.substring(0, sub.lastIndexOf("-")) + "-restful-api";
     }
 
 }

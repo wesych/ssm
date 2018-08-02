@@ -1,4 +1,4 @@
-package org.wesc.ssm.api.base;
+package org.wesc.ssm.restapi.base;
 
 /**
  * 服务器端返回状态码

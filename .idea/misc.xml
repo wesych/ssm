@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/ssm-core-api" />
+    <file type="web" url="file://$PROJECT_DIR$/ssm-restful-api" />
     <file type="web" url="file://$PROJECT_DIR$/ssm-web-management" />
     <file type="web" url="file://$PROJECT_DIR$/ssm-web-portal" />
   </component>

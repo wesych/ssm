@@ -1,4 +1,4 @@
-package org.wesc.ssm.api.base;
+package org.wesc.ssm.restapi.base;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

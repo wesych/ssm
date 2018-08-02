@@ -1,4 +1,4 @@
-package org.wesc.ssm.api.interceptor;
+package org.wesc.ssm.restapi.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.web.method.HandlerMethod;

@@ -1,4 +1,4 @@
-package org.wesc.ssm.api.interceptor;
+package org.wesc.ssm.restapi.interceptor;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

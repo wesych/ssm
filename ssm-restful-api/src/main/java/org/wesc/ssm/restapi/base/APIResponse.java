@@ -1,4 +1,4 @@
-package org.wesc.ssm.api.base;
+package org.wesc.ssm.restapi.base;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

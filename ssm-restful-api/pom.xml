@@ -10,10 +10,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ssm-core-api</artifactId>
+    <artifactId>ssm-restful-api</artifactId>
     <packaging>war</packaging>
 
-    <name>ssm-core-api Maven Webapp</name>
+    <name>ssm-restful-api Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
@@ -89,7 +89,7 @@
     </dependencies>
 
     <build>
-        <finalName>ssm-core-api</finalName>
+        <finalName>ssm-restful-api</finalName>
     </build>
 
 </project>

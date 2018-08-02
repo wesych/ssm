@@ -1,4 +1,4 @@
-package org.wesc.ssm.api.interceptor;
+package org.wesc.ssm.restapi.interceptor;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

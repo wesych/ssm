@@ -7,10 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ssm-common-utils" />
-        <module name="ssm-core-api" />
         <module name="ssm-core-dao" />
         <module name="ssm-core-service" />
         <module name="ssm-core-shiro" />
+        <module name="ssm-restful-api" />
         <module name="ssm-web-management" />
         <module name="ssm-web-portal" />
       </profile>

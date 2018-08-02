@@ -54,7 +54,7 @@
     <context:annotation-config />
 
     <!-- SpringMVC只扫描@Controller -->
-    <context:component-scan base-package="org.wesc.ssm.api">
+    <context:component-scan base-package="org.wesc.ssm.restapi">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
 
@@ -92,13 +92,13 @@
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <mvc:exclude-mapping path="/static/**" />
-            <bean class="org.wesc.ssm.api.interceptor.LogApiInterceptor" />
+            <bean class="org.wesc.ssm.restapi.interceptor.LogApiInterceptor" />
         </mvc:interceptor>
 
         <!-- 重复提交拦截器 -->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="org.wesc.ssm.api.interceptor.RepeatDataInterceptor"/>
+            <bean class="org.wesc.ssm.restapi.interceptor.RepeatDataInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

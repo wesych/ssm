@@ -1,4 +1,4 @@
-package org.wesc.ssm.api.login;
+package org.wesc.ssm.restapi.login;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,8 +8,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.wesc.ssm.api.base.APIResponse;
-import org.wesc.ssm.api.interceptor.AntiRepeat;
+import org.wesc.ssm.restapi.base.APIResponse;
+import org.wesc.ssm.restapi.interceptor.AntiRepeat;
 import org.wesc.ssm.dao.entity.User;
 import org.wesc.ssm.service.exception.ServiceException;
 import org.wesc.ssm.service.user.UserService;
