@@ -10,10 +10,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>ssm-common-utils</module>
+        <module>ssm-core-api</module>
         <module>ssm-core-dao</module>
         <module>ssm-core-service</module>
         <module>ssm-core-shiro</module>
-        <module>ssm-core-api</module>
         <module>ssm-web-portal</module>
         <module>ssm-web-management</module>
     </modules>
@@ -51,6 +51,7 @@
         <cglib.version>3.2.7</cglib.version>
         <aspectj.version>1.9.1</aspectj.version>
         <tiles.version>3.0.8</tiles.version>
+        <dubbo.version>2.6.2</dubbo.version>
     </properties>
 
     <!--版本管理，实际不下载-->
@@ -391,6 +392,14 @@
                 <artifactId>tiles-extras</artifactId>
                 <version>${tiles.version}</version>
             </dependency>
+
+            <!-- Alibaba Dubbo -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>${dubbo.version}</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>
