@@ -19,7 +19,7 @@ import org.wesc.ssm.shiro.realm.PasswordHelper;
 @ContextConfiguration(locations = {
         "classpath:applicationContext.xml",
         "classpath:spring-mysql.xml",
-        "classpath:spring-redis-standalone.xml"
+        "classpath:spring-redis-sentinel.xml"
 })
 public class EncryptTest {
 
@@ -33,7 +33,7 @@ public class EncryptTest {
 
     @Test
     public void test() {
-        User user = userMapper.selectByPrimaryKey(2);
+        User user = userMapper.selectById(2);
         user.setPassword("111");
         LOGGER.info("Account:" + user.getAccount() + ", pwd:" + passwordHelper.encryptPassword(user));
     }

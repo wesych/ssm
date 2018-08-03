@@ -6,113 +6,90 @@
     <result column="permission_name" jdbcType="VARCHAR" property="permissionName" />
     <result column="create_time" jdbcType="DATE" property="createTime" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+  <sql id="Map_Where_Clause">
+    <if test="null != permissionId">
+      and p.permission_id = #{permissionId}
+    </if>
+    <if test="null != ne_permissionId">
+      and p.permission_id != #{ne_permissionId}
+    </if>
+    <if test="null != list_permissionId">
+      and p.permission_id in (<foreach collection="list_permissionId" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != permissionName">
+      and p.permission_name = #{permissionName}
+    </if>
+    <if test="null != ne_permissionName">
+      and p.permission_name != #{ne_permissionName}
+    </if>
+    <if test="null != like_permissionName">
+      and p.permission_name like CONCAT('%', #{like_permissionName}, '%')
+    </if>
+    <if test="null != list_permissionName">
+      and p.permission_name in (<foreach collection="list_permissionName" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_permissionName">
+      and p.permission_name &gt;= #{begin_permissionName}
+    </if>
+    <if test="null != end_permissionName">
+      and p.permission_name &lt;= #{end_permissionName}
+    </if>
+    <if test="null != begin_createTime">
+      and p.create_time &gt;= #{begin_createTime}
+    </if>
+    <if test="null != end_createTime">
+      and p.create_time &lt;= #{end_createTime}
+    </if>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+  <sql id="Order_By_Clause">
+    <if test="null != order">
+      <trim prefix="order by ">
+        <foreach collection="order" item="orderItem" separator=",">
+          <if test="'permissionId' == orderItem.column">
+            p.permission_id ${orderItem.dir}
+          </if>
+          <if test="'permissionName' == orderItem.column">
+            p.permission_name ${orderItem.dir}
+          </if>
+          <if test="'createTime' == orderItem.column">
+            p.create_time ${orderItem.dir}
+          </if>
+        </foreach>
+      </trim>
+    </if>
   </sql>
   <sql id="Base_Column_List">
-    permission_id, permission_name, create_time
+    p.permission_id, p.permission_name, p.create_time
   </sql>
-  <select id="selectByExample" parameterType="org.wesc.ssm.dao.entity.PermissionExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limitStart != null and limitStart>=0">
-      limit #{limitStart} , #{limitEnd}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from permission
-    where permission_id = #{permissionId,jdbcType=INTEGER}
+    from permission p
+    where p.permission_id = #{permissionId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from permission
-    where permission_id = #{permissionId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="org.wesc.ssm.dao.entity.PermissionExample">
-    delete from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="org.wesc.ssm.dao.entity.Permission">
-    <selectKey keyProperty="permissionId" order="AFTER" resultType="java.lang.Integer">
-      default
-    </selectKey>
-    insert into permission (permission_name, create_time)
-    values (#{permissionName,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE})
-  </insert>
+  <select id="selectByMap" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from permission p
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+    <include refid="Order_By_Clause" />
+  </select>
+  <select id="countByMap" parameterType="map" resultType="java.lang.Integer">
+    select count(1)
+    from permission p
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+  </select>
   <insert id="insertSelective" parameterType="org.wesc.ssm.dao.entity.Permission">
     <selectKey keyProperty="permissionId" order="AFTER" resultType="java.lang.Integer">
-      default
+      select @@identity
     </selectKey>
     insert into permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      permission_id,
       <if test="permissionName != null">
         permission_name,
       </if>
@@ -121,6 +98,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{permissionId,jdbcType=INTEGER},
       <if test="permissionName != null">
         #{permissionName,jdbcType=VARCHAR},
       </if>
@@ -129,39 +107,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.wesc.ssm.dao.entity.PermissionExample" resultType="java.lang.Long">
-    select count(*) from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update permission
-    <set>
-      <if test="record.permissionId != null">
-        permission_id = #{record.permissionId,jdbcType=INTEGER},
-      </if>
-      <if test="record.permissionName != null">
-        permission_name = #{record.permissionName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=DATE},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update permission
-    set permission_id = #{record.permissionId,jdbcType=INTEGER},
-      permission_name = #{record.permissionName,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=DATE}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="org.wesc.ssm.dao.entity.Permission">
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from permission
+    where permission_id = #{permissionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByIds">
+    delete from permission where permission_id in 
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+  <delete id="deleteByMap">
+    delete from p using (permission as p) 
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+  </delete>
+  <update id="updateSelectiveById" parameterType="org.wesc.ssm.dao.entity.Permission">
     update permission
     <set>
       <if test="permissionName != null">
@@ -173,10 +135,53 @@
     </set>
     where permission_id = #{permissionId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.wesc.ssm.dao.entity.Permission">
-    update permission
-    set permission_name = #{permissionName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=DATE}
-    where permission_id = #{permissionId,jdbcType=INTEGER}
+  <update id="updateSelectiveByMap" parameterType="map">
+    update permission p
+    <set>
+      <if test="record.permissionId != null">
+        permission_id = #{record.permissionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.permissionName != null">
+        permission_name = #{record.permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+    </set>
+    <where>
+      <if test="null != map.permissionId">
+        and p.permission_id = #{map.permissionId}
+      </if>
+      <if test="null != map.ne_permissionId">
+        and p.permission_id != #{map.ne_permissionId}
+      </if>
+      <if test="null != map.list_permissionId">
+        and p.permission_id in (<foreach collection="map.list_permissionId" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.permissionName">
+        and p.permission_name = #{map.permissionName}
+      </if>
+      <if test="null != map.ne_permissionName">
+        and p.permission_name != #{map.ne_permissionName}
+      </if>
+      <if test="null != map.like_permissionName">
+        and p.permission_name like CONCAT('%', #{map.like_permissionName}, '%')
+      </if>
+      <if test="null != map.list_permissionName">
+        and p.permission_name in (<foreach collection="map.list_permissionName" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_permissionName">
+        and p.permission_name &gt;= #{map.begin_permissionName}
+      </if>
+      <if test="null != map.end_permissionName">
+        and p.permission_name &lt;= #{map.end_permissionName}
+      </if>
+      <if test="null != map.begin_createTime">
+        and p.create_time &gt;= #{map.begin_createTime}
+      </if>
+      <if test="null != map.end_createTime">
+        and p.create_time &lt;= #{map.end_createTime}
+      </if>
+    </where>
   </update>
 </mapper>

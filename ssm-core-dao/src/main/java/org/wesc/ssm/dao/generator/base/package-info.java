@@ -3,4 +3,4 @@
  * @Auther: Wesley Cheung
  * @Date: 2018/6/28 14:35
  */
-package org.wesc.ssm.dao.generator;
+package org.wesc.ssm.dao.generator.base;

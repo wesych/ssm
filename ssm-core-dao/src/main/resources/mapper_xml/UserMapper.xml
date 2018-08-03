@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.wesc.ssm.dao.mapper.UserMapper">
-  <!-- Enable cache -->
-  <cache type="org.wesc.ssm.dao.cache.MybatisRedisCache" />
-
   <resultMap id="BaseResultMap" type="org.wesc.ssm.dao.entity.User">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="account" jdbcType="VARCHAR" property="account" />
@@ -17,120 +14,229 @@
     <result column="join_time" jdbcType="DATE" property="joinTime" />
     <result column="locked" jdbcType="BIT" property="locked" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+  <sql id="Map_Where_Clause">
+    <if test="null != userId">
+      and u.user_id = #{userId}
+    </if>
+    <if test="null != ne_userId">
+      and u.user_id != #{ne_userId}
+    </if>
+    <if test="null != list_userId">
+      and u.user_id in (<foreach collection="list_userId" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != account">
+      and u.account = #{account}
+    </if>
+    <if test="null != ne_account">
+      and u.account != #{ne_account}
+    </if>
+    <if test="null != like_account">
+      and u.account like CONCAT('%', #{like_account}, '%')
+    </if>
+    <if test="null != list_account">
+      and u.account in (<foreach collection="list_account" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_account">
+      and u.account &gt;= #{begin_account}
+    </if>
+    <if test="null != end_account">
+      and u.account &lt;= #{end_account}
+    </if>
+    <if test="null != nickname">
+      and u.nickname = #{nickname}
+    </if>
+    <if test="null != ne_nickname">
+      and u.nickname != #{ne_nickname}
+    </if>
+    <if test="null != like_nickname">
+      and u.nickname like CONCAT('%', #{like_nickname}, '%')
+    </if>
+    <if test="null != list_nickname">
+      and u.nickname in (<foreach collection="list_nickname" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_nickname">
+      and u.nickname &gt;= #{begin_nickname}
+    </if>
+    <if test="null != end_nickname">
+      and u.nickname &lt;= #{end_nickname}
+    </if>
+    <if test="null != mobile">
+      and u.mobile = #{mobile}
+    </if>
+    <if test="null != ne_mobile">
+      and u.mobile != #{ne_mobile}
+    </if>
+    <if test="null != like_mobile">
+      and u.mobile like CONCAT('%', #{like_mobile}, '%')
+    </if>
+    <if test="null != list_mobile">
+      and u.mobile in (<foreach collection="list_mobile" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_mobile">
+      and u.mobile &gt;= #{begin_mobile}
+    </if>
+    <if test="null != end_mobile">
+      and u.mobile &lt;= #{end_mobile}
+    </if>
+    <if test="null != password">
+      and u.password = #{password}
+    </if>
+    <if test="null != ne_password">
+      and u.password != #{ne_password}
+    </if>
+    <if test="null != like_password">
+      and u.password like CONCAT('%', #{like_password}, '%')
+    </if>
+    <if test="null != list_password">
+      and u.password in (<foreach collection="list_password" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_password">
+      and u.password &gt;= #{begin_password}
+    </if>
+    <if test="null != end_password">
+      and u.password &lt;= #{end_password}
+    </if>
+    <if test="null != email">
+      and u.email = #{email}
+    </if>
+    <if test="null != ne_email">
+      and u.email != #{ne_email}
+    </if>
+    <if test="null != like_email">
+      and u.email like CONCAT('%', #{like_email}, '%')
+    </if>
+    <if test="null != list_email">
+      and u.email in (<foreach collection="list_email" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_email">
+      and u.email &gt;= #{begin_email}
+    </if>
+    <if test="null != end_email">
+      and u.email &lt;= #{end_email}
+    </if>
+    <if test="null != gender">
+      and u.gender = #{gender}
+    </if>
+    <if test="null != ne_gender">
+      and u.gender != #{ne_gender}
+    </if>
+    <if test="null != list_gender">
+      and u.gender in (<foreach collection="list_gender" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != city">
+      and u.city = #{city}
+    </if>
+    <if test="null != ne_city">
+      and u.city != #{ne_city}
+    </if>
+    <if test="null != like_city">
+      and u.city like CONCAT('%', #{like_city}, '%')
+    </if>
+    <if test="null != list_city">
+      and u.city in (<foreach collection="list_city" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_city">
+      and u.city &gt;= #{begin_city}
+    </if>
+    <if test="null != end_city">
+      and u.city &lt;= #{end_city}
+    </if>
+    <if test="null != begin_birth">
+      and u.birth &gt;= #{begin_birth}
+    </if>
+    <if test="null != end_birth">
+      and u.birth &lt;= #{end_birth}
+    </if>
+    <if test="null != begin_joinTime">
+      and u.join_time &gt;= #{begin_joinTime}
+    </if>
+    <if test="null != end_joinTime">
+      and u.join_time &lt;= #{end_joinTime}
+    </if>
+    <if test="null != locked">
+      and u.locked = #{locked}
+    </if>
+    <if test="null != ne_locked">
+      and u.locked != #{ne_locked}
+    </if>
+    <if test="null != list_locked">
+      and u.locked in (<foreach collection="list_locked" item="i" separator=",">#{i}</foreach>)
+    </if>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+  <sql id="Order_By_Clause">
+    <if test="null != order">
+      <trim prefix="order by ">
+        <foreach collection="order" item="orderItem" separator=",">
+          <if test="'userId' == orderItem.column">
+            u.user_id ${orderItem.dir}
+          </if>
+          <if test="'account' == orderItem.column">
+            u.account ${orderItem.dir}
+          </if>
+          <if test="'nickname' == orderItem.column">
+            u.nickname ${orderItem.dir}
+          </if>
+          <if test="'mobile' == orderItem.column">
+            u.mobile ${orderItem.dir}
+          </if>
+          <if test="'password' == orderItem.column">
+            u.password ${orderItem.dir}
+          </if>
+          <if test="'email' == orderItem.column">
+            u.email ${orderItem.dir}
+          </if>
+          <if test="'gender' == orderItem.column">
+            u.gender ${orderItem.dir}
+          </if>
+          <if test="'city' == orderItem.column">
+            u.city ${orderItem.dir}
+          </if>
+          <if test="'birth' == orderItem.column">
+            u.birth ${orderItem.dir}
+          </if>
+          <if test="'joinTime' == orderItem.column">
+            u.join_time ${orderItem.dir}
+          </if>
+          <if test="'locked' == orderItem.column">
+            u.locked ${orderItem.dir}
+          </if>
+        </foreach>
+      </trim>
+    </if>
   </sql>
   <sql id="Base_Column_List">
-    user_id, account, nickname, mobile, password, email, gender, city, birth, join_time, 
-    locked
+    u.user_id, u.account, u.nickname, u.mobile, u.password, u.email, u.gender, u.city, 
+    u.birth, u.join_time, u.locked
   </sql>
-  <select id="selectByExample" parameterType="org.wesc.ssm.dao.entity.UserExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limitStart != null and limitStart>=0">
-      limit #{limitStart} , #{limitEnd}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
-    where user_id = #{userId,jdbcType=INTEGER}
+    from user u
+    where u.user_id = #{userId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where user_id = #{userId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="org.wesc.ssm.dao.entity.UserExample">
-    delete from user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="org.wesc.ssm.dao.entity.User">
-    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
-      default
-    </selectKey>
-    insert into user (account, nickname, mobile, 
-      password, email, gender, 
-      city, birth, join_time, locked
-      )
-    values (#{account,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, 
-      #{city,jdbcType=VARCHAR}, #{birth,jdbcType=DATE}, #{joinTime,jdbcType=DATE}, #{locked,jdbcType=BIT}
-      )
-  </insert>
+  <select id="selectByMap" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user u
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+    <include refid="Order_By_Clause" />
+  </select>
+  <select id="countByMap" parameterType="map" resultType="java.lang.Integer">
+    select count(1)
+    from user u
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+  </select>
   <insert id="insertSelective" parameterType="org.wesc.ssm.dao.entity.User">
     <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
-      default
+      select @@identity
     </selectKey>
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      user_id,
       <if test="account != null">
         account,
       </if>
@@ -163,6 +269,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{userId,jdbcType=INTEGER},
       <if test="account != null">
         #{account,jdbcType=VARCHAR},
       </if>
@@ -195,71 +302,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.wesc.ssm.dao.entity.UserExample" resultType="java.lang.Long">
-    select count(*) from user
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update user
-    <set>
-      <if test="record.userId != null">
-        user_id = #{record.userId,jdbcType=INTEGER},
-      </if>
-      <if test="record.account != null">
-        account = #{record.account,jdbcType=VARCHAR},
-      </if>
-      <if test="record.nickname != null">
-        nickname = #{record.nickname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.mobile != null">
-        mobile = #{record.mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.email != null">
-        email = #{record.email,jdbcType=VARCHAR},
-      </if>
-      <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=BIT},
-      </if>
-      <if test="record.city != null">
-        city = #{record.city,jdbcType=VARCHAR},
-      </if>
-      <if test="record.birth != null">
-        birth = #{record.birth,jdbcType=DATE},
-      </if>
-      <if test="record.joinTime != null">
-        join_time = #{record.joinTime,jdbcType=DATE},
-      </if>
-      <if test="record.locked != null">
-        locked = #{record.locked,jdbcType=BIT},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update user
-    set user_id = #{record.userId,jdbcType=INTEGER},
-      account = #{record.account,jdbcType=VARCHAR},
-      nickname = #{record.nickname,jdbcType=VARCHAR},
-      mobile = #{record.mobile,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      email = #{record.email,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=BIT},
-      city = #{record.city,jdbcType=VARCHAR},
-      birth = #{record.birth,jdbcType=DATE},
-      join_time = #{record.joinTime,jdbcType=DATE},
-      locked = #{record.locked,jdbcType=BIT}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="org.wesc.ssm.dao.entity.User">
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByIds">
+    delete from user where user_id in 
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+  <delete id="deleteByMap">
+    delete from u using (user as u) 
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+  </delete>
+  <update id="updateSelectiveById" parameterType="org.wesc.ssm.dao.entity.User">
     update user
     <set>
       <if test="account != null">
@@ -295,18 +354,191 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.wesc.ssm.dao.entity.User">
-    update user
-    set account = #{account,jdbcType=VARCHAR},
-      nickname = #{nickname,jdbcType=VARCHAR},
-      mobile = #{mobile,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=BIT},
-      city = #{city,jdbcType=VARCHAR},
-      birth = #{birth,jdbcType=DATE},
-      join_time = #{joinTime,jdbcType=DATE},
-      locked = #{locked,jdbcType=BIT}
-    where user_id = #{userId,jdbcType=INTEGER}
+  <update id="updateSelectiveByMap" parameterType="map">
+    update user u
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.account != null">
+        account = #{record.account,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickname = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=BIT},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.birth != null">
+        birth = #{record.birth,jdbcType=DATE},
+      </if>
+      <if test="record.joinTime != null">
+        join_time = #{record.joinTime,jdbcType=DATE},
+      </if>
+      <if test="record.locked != null">
+        locked = #{record.locked,jdbcType=BIT},
+      </if>
+    </set>
+    <where>
+      <if test="null != map.userId">
+        and u.user_id = #{map.userId}
+      </if>
+      <if test="null != map.ne_userId">
+        and u.user_id != #{map.ne_userId}
+      </if>
+      <if test="null != map.list_userId">
+        and u.user_id in (<foreach collection="map.list_userId" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.account">
+        and u.account = #{map.account}
+      </if>
+      <if test="null != map.ne_account">
+        and u.account != #{map.ne_account}
+      </if>
+      <if test="null != map.like_account">
+        and u.account like CONCAT('%', #{map.like_account}, '%')
+      </if>
+      <if test="null != map.list_account">
+        and u.account in (<foreach collection="map.list_account" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_account">
+        and u.account &gt;= #{map.begin_account}
+      </if>
+      <if test="null != map.end_account">
+        and u.account &lt;= #{map.end_account}
+      </if>
+      <if test="null != map.nickname">
+        and u.nickname = #{map.nickname}
+      </if>
+      <if test="null != map.ne_nickname">
+        and u.nickname != #{map.ne_nickname}
+      </if>
+      <if test="null != map.like_nickname">
+        and u.nickname like CONCAT('%', #{map.like_nickname}, '%')
+      </if>
+      <if test="null != map.list_nickname">
+        and u.nickname in (<foreach collection="map.list_nickname" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_nickname">
+        and u.nickname &gt;= #{map.begin_nickname}
+      </if>
+      <if test="null != map.end_nickname">
+        and u.nickname &lt;= #{map.end_nickname}
+      </if>
+      <if test="null != map.mobile">
+        and u.mobile = #{map.mobile}
+      </if>
+      <if test="null != map.ne_mobile">
+        and u.mobile != #{map.ne_mobile}
+      </if>
+      <if test="null != map.like_mobile">
+        and u.mobile like CONCAT('%', #{map.like_mobile}, '%')
+      </if>
+      <if test="null != map.list_mobile">
+        and u.mobile in (<foreach collection="map.list_mobile" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_mobile">
+        and u.mobile &gt;= #{map.begin_mobile}
+      </if>
+      <if test="null != map.end_mobile">
+        and u.mobile &lt;= #{map.end_mobile}
+      </if>
+      <if test="null != map.password">
+        and u.password = #{map.password}
+      </if>
+      <if test="null != map.ne_password">
+        and u.password != #{map.ne_password}
+      </if>
+      <if test="null != map.like_password">
+        and u.password like CONCAT('%', #{map.like_password}, '%')
+      </if>
+      <if test="null != map.list_password">
+        and u.password in (<foreach collection="map.list_password" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_password">
+        and u.password &gt;= #{map.begin_password}
+      </if>
+      <if test="null != map.end_password">
+        and u.password &lt;= #{map.end_password}
+      </if>
+      <if test="null != map.email">
+        and u.email = #{map.email}
+      </if>
+      <if test="null != map.ne_email">
+        and u.email != #{map.ne_email}
+      </if>
+      <if test="null != map.like_email">
+        and u.email like CONCAT('%', #{map.like_email}, '%')
+      </if>
+      <if test="null != map.list_email">
+        and u.email in (<foreach collection="map.list_email" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_email">
+        and u.email &gt;= #{map.begin_email}
+      </if>
+      <if test="null != map.end_email">
+        and u.email &lt;= #{map.end_email}
+      </if>
+      <if test="null != map.gender">
+        and u.gender = #{map.gender}
+      </if>
+      <if test="null != map.ne_gender">
+        and u.gender != #{map.ne_gender}
+      </if>
+      <if test="null != map.list_gender">
+        and u.gender in (<foreach collection="map.list_gender" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.city">
+        and u.city = #{map.city}
+      </if>
+      <if test="null != map.ne_city">
+        and u.city != #{map.ne_city}
+      </if>
+      <if test="null != map.like_city">
+        and u.city like CONCAT('%', #{map.like_city}, '%')
+      </if>
+      <if test="null != map.list_city">
+        and u.city in (<foreach collection="map.list_city" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_city">
+        and u.city &gt;= #{map.begin_city}
+      </if>
+      <if test="null != map.end_city">
+        and u.city &lt;= #{map.end_city}
+      </if>
+      <if test="null != map.begin_birth">
+        and u.birth &gt;= #{map.begin_birth}
+      </if>
+      <if test="null != map.end_birth">
+        and u.birth &lt;= #{map.end_birth}
+      </if>
+      <if test="null != map.begin_joinTime">
+        and u.join_time &gt;= #{map.begin_joinTime}
+      </if>
+      <if test="null != map.end_joinTime">
+        and u.join_time &lt;= #{map.end_joinTime}
+      </if>
+      <if test="null != map.locked">
+        and u.locked = #{map.locked}
+      </if>
+      <if test="null != map.ne_locked">
+        and u.locked != #{map.ne_locked}
+      </if>
+      <if test="null != map.list_locked">
+        and u.locked in (<foreach collection="map.list_locked" item="i" separator=",">#{i}</foreach>)
+      </if>
+    </where>
   </update>
 </mapper>

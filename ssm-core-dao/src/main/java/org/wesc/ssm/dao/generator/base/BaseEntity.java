@@ -1,4 +1,4 @@
-package org.wesc.ssm.dao.generator;
+package org.wesc.ssm.dao.generator.base;
 
 import java.beans.PropertyDescriptor;
 import java.io.Serializable;

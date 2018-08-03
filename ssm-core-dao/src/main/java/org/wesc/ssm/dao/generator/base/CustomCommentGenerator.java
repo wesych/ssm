@@ -1,4 +1,4 @@
-package org.wesc.ssm.dao.generator;
+package org.wesc.ssm.dao.generator.base;
 
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;

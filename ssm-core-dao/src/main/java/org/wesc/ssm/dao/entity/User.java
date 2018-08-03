@@ -1,9 +1,14 @@
 package org.wesc.ssm.dao.entity;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import org.wesc.ssm.dao.generator.base.BaseEntity;
 
-public class User implements Serializable {
+public class User extends BaseEntity<Integer> {
     /**
      * userId
      */
@@ -59,7 +64,7 @@ public class User implements Serializable {
      */
     private Boolean locked;
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 3730140540624156256L;
 
     /**
      * {@link #userId}
@@ -216,6 +221,49 @@ public class User implements Serializable {
     }
 
     @Override
+    public String getIdPropertyName() {
+        return "userId";
+    }
+
+    @Override
+    public Integer getIdValue() {
+        return userId;
+    }
+
+    @Override
+    public void setIdValue(Integer id) {
+        this.userId = id;
+    }
+
+    public static JSONObject toJSON(User e) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (e == null) {
+            return null;
+        }
+        JSONObject obj = (JSONObject) JSON.toJSON(e);
+        if (e.getBirth() != null) {
+            obj.put("birthStr", fmt.format(e.getBirth()));
+        }
+        if (e.getJoinTime() != null) {
+            obj.put("joinTimeStr", fmt.format(e.getJoinTime()));
+        }
+        return obj;
+    }
+
+    public static List<JSONObject> toJSON(List<User> list) {
+        List<JSONObject> retList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            retList.add(toJSON(list.get(i)));
+        }
+        return retList;
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        return User.toJSON(this);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
@@ -232,6 +280,7 @@ public class User implements Serializable {
         sb.append(", birth=").append(birth);
         sb.append(", joinTime=").append(joinTime);
         sb.append(", locked=").append(locked);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
@@ -277,5 +326,131 @@ public class User implements Serializable {
         result = prime * result + ((getJoinTime() == null) ? 0 : getJoinTime().hashCode());
         result = prime * result + ((getLocked() == null) ? 0 : getLocked().hashCode());
         return result;
+    }
+
+    public static class Fields {
+        public static final String USER_ID = "userId";
+
+        public static final String ACCOUNT = "account";
+
+        public static final String NICKNAME = "nickname";
+
+        public static final String MOBILE = "mobile";
+
+        public static final String PASSWORD = "password";
+
+        public static final String EMAIL = "email";
+
+        public static final String GENDER = "gender";
+
+        public static final String CITY = "city";
+
+        public static final String BIRTH = "birth";
+
+        public static final String JOIN_TIME = "joinTime";
+
+        public static final String LOCKED = "locked";
+    }
+
+    public static class Query {
+        public static final String USER_ID__NE = "ne_userId";
+
+        public static final String USER_ID__IN = "list_userId";
+
+        public static final String USER_ID__BEGIN = "begin_userId";
+
+        public static final String USER_ID__END = "end_userId";
+
+        public static final String ACCOUNT__NE = "ne_account";
+
+        public static final String ACCOUNT__LIKE = "like_account";
+
+        public static final String ACCOUNT__IN = "list_account";
+
+        public static final String ACCOUNT__BEGIN = "begin_account";
+
+        public static final String ACCOUNT__END = "end_account";
+
+        public static final String NICKNAME__NE = "ne_nickname";
+
+        public static final String NICKNAME__LIKE = "like_nickname";
+
+        public static final String NICKNAME__IN = "list_nickname";
+
+        public static final String NICKNAME__BEGIN = "begin_nickname";
+
+        public static final String NICKNAME__END = "end_nickname";
+
+        public static final String MOBILE__NE = "ne_mobile";
+
+        public static final String MOBILE__LIKE = "like_mobile";
+
+        public static final String MOBILE__IN = "list_mobile";
+
+        public static final String MOBILE__BEGIN = "begin_mobile";
+
+        public static final String MOBILE__END = "end_mobile";
+
+        public static final String PASSWORD__NE = "ne_password";
+
+        public static final String PASSWORD__LIKE = "like_password";
+
+        public static final String PASSWORD__IN = "list_password";
+
+        public static final String PASSWORD__BEGIN = "begin_password";
+
+        public static final String PASSWORD__END = "end_password";
+
+        public static final String EMAIL__NE = "ne_email";
+
+        public static final String EMAIL__LIKE = "like_email";
+
+        public static final String EMAIL__IN = "list_email";
+
+        public static final String EMAIL__BEGIN = "begin_email";
+
+        public static final String EMAIL__END = "end_email";
+
+        public static final String GENDER__NE = "ne_gender";
+
+        public static final String GENDER__IN = "list_gender";
+
+        public static final String GENDER__BEGIN = "begin_gender";
+
+        public static final String GENDER__END = "end_gender";
+
+        public static final String CITY__NE = "ne_city";
+
+        public static final String CITY__LIKE = "like_city";
+
+        public static final String CITY__IN = "list_city";
+
+        public static final String CITY__BEGIN = "begin_city";
+
+        public static final String CITY__END = "end_city";
+
+        public static final String BIRTH__NE = "ne_birth";
+
+        public static final String BIRTH__IN = "list_birth";
+
+        public static final String BIRTH__BEGIN = "begin_birth";
+
+        public static final String BIRTH__END = "end_birth";
+
+        public static final String JOIN_TIME__NE = "ne_joinTime";
+
+        public static final String JOIN_TIME__IN = "list_joinTime";
+
+        public static final String JOIN_TIME__BEGIN = "begin_joinTime";
+
+        public static final String JOIN_TIME__END = "end_joinTime";
+
+        public static final String LOCKED__NE = "ne_locked";
+
+        public static final String LOCKED__IN = "list_locked";
+
+        public static final String LOCKED__BEGIN = "begin_locked";
+
+        public static final String LOCKED__END = "end_locked";
     }
 }

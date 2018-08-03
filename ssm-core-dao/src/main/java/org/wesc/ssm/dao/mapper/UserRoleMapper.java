@@ -1,30 +1,31 @@
 package org.wesc.ssm.dao.mapper;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 import org.wesc.ssm.dao.entity.UserRole;
-import org.wesc.ssm.dao.entity.UserRoleExample;
+import org.wesc.ssm.dao.generator.base.BaseMapper;
+import org.wesc.ssm.dao.generator.base.ManagementMapper;
 
-public interface UserRoleMapper {
-    long countByExample(UserRoleExample example);
+public interface UserRoleMapper extends org.wesc.ssm.dao.generator.base.BaseMapper<UserRole, Integer>, org.wesc.ssm.dao.generator.base.ManagementMapper<UserRole, Integer> {
+    UserRole selectById(Integer id);
 
-    int deleteByExample(UserRoleExample example);
+    java.util.List<UserRole> selectByMap(java.util.Map<String, Object> map);
 
-    int deleteByPrimaryKey(Integer id);
+    java.util.List<UserRole> selectByMap(java.util.Map<String, Object> map, RowBounds rb);
 
-    int insert(UserRole record);
+    Integer countByMap(java.util.Map<String, Object> map);
 
-    int insertSelective(UserRole record);
+    Integer insertSelective(UserRole obj);
 
-    List<UserRole> selectByExample(UserRoleExample example);
+    Integer deleteById(Integer id);
 
-    UserRole selectByPrimaryKey(Integer id);
+    Integer deleteByIds(java.util.List<Integer> ids);
 
-    int updateByExampleSelective(@Param("record") UserRole record, @Param("example") UserRoleExample example);
+    Integer deleteByMap(java.util.Map<String, Object> map);
 
-    int updateByExample(@Param("record") UserRole record, @Param("example") UserRoleExample example);
+    Integer updateSelectiveById(UserRole obj);
 
-    int updateByPrimaryKeySelective(UserRole record);
-
-    int updateByPrimaryKey(UserRole record);
+    Integer updateSelectiveByMap(@Param("record") UserRole obj, @Param("map") java.util.Map<String, Object> param);
 }

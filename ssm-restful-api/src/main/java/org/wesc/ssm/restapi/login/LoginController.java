@@ -14,7 +14,7 @@ import org.wesc.ssm.dao.entity.User;
 import org.wesc.ssm.service.exception.ServiceException;
 import org.wesc.ssm.service.user.UserService;
 import org.wesc.ssm.shiro.service.LoginResult;
-import org.wesc.ssm.shiro.service.SignService;
+import org.wesc.ssm.shiro.service.LoginService;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -31,7 +31,7 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
-    private SignService signService;
+    private LoginService signService;
 
     /**
      * 登录

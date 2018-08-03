@@ -1,4 +1,4 @@
-package org.wesc.ssm.dao.generator;
+package org.wesc.ssm.dao.generator.base;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +8,8 @@ import org.apache.ibatis.session.RowBounds;
 /**
  * 所有Mapper接口的父接口. 
  * 
+ * @author 高鹏
+ *
  * @param <ENTITY> 实体类类型
  * @param <ID>     ID字段类型
  */

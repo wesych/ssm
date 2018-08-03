@@ -1,8 +1,13 @@
 package org.wesc.ssm.dao.entity;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import org.wesc.ssm.dao.generator.base.BaseEntity;
 
-public class RolePermission implements Serializable {
+public class RolePermission extends BaseEntity<Integer> {
     /**
      * id
      */
@@ -18,7 +23,7 @@ public class RolePermission implements Serializable {
      */
     private Integer permissionId;
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -4009469549096234887L;
 
     /**
      * {@link #id}
@@ -63,6 +68,42 @@ public class RolePermission implements Serializable {
     }
 
     @Override
+    public String getIdPropertyName() {
+        return "id";
+    }
+
+    @Override
+    public Integer getIdValue() {
+        return id;
+    }
+
+    @Override
+    public void setIdValue(Integer id) {
+        this.id = id;
+    }
+
+    public static JSONObject toJSON(RolePermission e) {
+        if (e == null) {
+            return null;
+        }
+        JSONObject obj = (JSONObject) JSON.toJSON(e);
+        return obj;
+    }
+
+    public static List<JSONObject> toJSON(List<RolePermission> list) {
+        List<JSONObject> retList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            retList.add(toJSON(list.get(i)));
+        }
+        return retList;
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        return RolePermission.toJSON(this);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
@@ -71,6 +112,7 @@ public class RolePermission implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", roleId=").append(roleId);
         sb.append(", permissionId=").append(permissionId);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
@@ -100,5 +142,39 @@ public class RolePermission implements Serializable {
         result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         result = prime * result + ((getPermissionId() == null) ? 0 : getPermissionId().hashCode());
         return result;
+    }
+
+    public static class Fields {
+        public static final String ID = "id";
+
+        public static final String ROLE_ID = "roleId";
+
+        public static final String PERMISSION_ID = "permissionId";
+    }
+
+    public static class Query {
+        public static final String ID__NE = "ne_id";
+
+        public static final String ID__IN = "list_id";
+
+        public static final String ID__BEGIN = "begin_id";
+
+        public static final String ID__END = "end_id";
+
+        public static final String ROLE_ID__NE = "ne_roleId";
+
+        public static final String ROLE_ID__IN = "list_roleId";
+
+        public static final String ROLE_ID__BEGIN = "begin_roleId";
+
+        public static final String ROLE_ID__END = "end_roleId";
+
+        public static final String PERMISSION_ID__NE = "ne_permissionId";
+
+        public static final String PERMISSION_ID__IN = "list_permissionId";
+
+        public static final String PERMISSION_ID__BEGIN = "begin_permissionId";
+
+        public static final String PERMISSION_ID__END = "end_permissionId";
     }
 }

@@ -75,7 +75,8 @@ public class APIResponse {
     }
 
     /**
-     * 调用接口失败(其他原因)
+     * 调用接口失败
+     *
      * @param message
      * @return
      */
@@ -87,7 +88,22 @@ public class APIResponse {
     }
 
     /**
+     * 调用接口失败(其他原因)
+     *
+     * @param errorCode
+     * @param message
+     * @return
+     */
+    public static APIResponse createFailResponse(int errorCode, String message) {
+        APIResponse resp = new APIResponse();
+        resp.setResult(errorCode);
+        resp.setMessage(message);
+        return resp;
+    }
+
+    /**
      * 调用接口失败：需要登录
+     *
      * @param message
      * @return
      */

@@ -6,113 +6,90 @@
     <result column="role_name" jdbcType="VARCHAR" property="roleName" />
     <result column="create_time" jdbcType="DATE" property="createTime" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+  <sql id="Map_Where_Clause">
+    <if test="null != roleId">
+      and r.role_id = #{roleId}
+    </if>
+    <if test="null != ne_roleId">
+      and r.role_id != #{ne_roleId}
+    </if>
+    <if test="null != list_roleId">
+      and r.role_id in (<foreach collection="list_roleId" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != roleName">
+      and r.role_name = #{roleName}
+    </if>
+    <if test="null != ne_roleName">
+      and r.role_name != #{ne_roleName}
+    </if>
+    <if test="null != like_roleName">
+      and r.role_name like CONCAT('%', #{like_roleName}, '%')
+    </if>
+    <if test="null != list_roleName">
+      and r.role_name in (<foreach collection="list_roleName" item="i" separator=",">#{i}</foreach>)
+    </if>
+    <if test="null != begin_roleName">
+      and r.role_name &gt;= #{begin_roleName}
+    </if>
+    <if test="null != end_roleName">
+      and r.role_name &lt;= #{end_roleName}
+    </if>
+    <if test="null != begin_createTime">
+      and r.create_time &gt;= #{begin_createTime}
+    </if>
+    <if test="null != end_createTime">
+      and r.create_time &lt;= #{end_createTime}
+    </if>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
+  <sql id="Order_By_Clause">
+    <if test="null != order">
+      <trim prefix="order by ">
+        <foreach collection="order" item="orderItem" separator=",">
+          <if test="'roleId' == orderItem.column">
+            r.role_id ${orderItem.dir}
+          </if>
+          <if test="'roleName' == orderItem.column">
+            r.role_name ${orderItem.dir}
+          </if>
+          <if test="'createTime' == orderItem.column">
+            r.create_time ${orderItem.dir}
+          </if>
+        </foreach>
+      </trim>
+    </if>
   </sql>
   <sql id="Base_Column_List">
-    role_id, role_name, create_time
+    r.role_id, r.role_name, r.create_time
   </sql>
-  <select id="selectByExample" parameterType="org.wesc.ssm.dao.entity.RoleExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from role
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-    <if test="limitStart != null and limitStart>=0">
-      limit #{limitStart} , #{limitEnd}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from role
-    where role_id = #{roleId,jdbcType=INTEGER}
+    from role r
+    where r.role_id = #{roleId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from role
-    where role_id = #{roleId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="org.wesc.ssm.dao.entity.RoleExample">
-    delete from role
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="org.wesc.ssm.dao.entity.Role">
-    <selectKey keyProperty="roleId" order="AFTER" resultType="java.lang.Integer">
-      default
-    </selectKey>
-    insert into role (role_name, create_time)
-    values (#{roleName,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE})
-  </insert>
+  <select id="selectByMap" parameterType="map" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from role r
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+    <include refid="Order_By_Clause" />
+  </select>
+  <select id="countByMap" parameterType="map" resultType="java.lang.Integer">
+    select count(1)
+    from role r
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+  </select>
   <insert id="insertSelective" parameterType="org.wesc.ssm.dao.entity.Role">
     <selectKey keyProperty="roleId" order="AFTER" resultType="java.lang.Integer">
-      default
+      select @@identity
     </selectKey>
     insert into role
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      role_id,
       <if test="roleName != null">
         role_name,
       </if>
@@ -121,6 +98,7 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{roleId,jdbcType=INTEGER},
       <if test="roleName != null">
         #{roleName,jdbcType=VARCHAR},
       </if>
@@ -129,39 +107,23 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="org.wesc.ssm.dao.entity.RoleExample" resultType="java.lang.Long">
-    select count(*) from role
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update role
-    <set>
-      <if test="record.roleId != null">
-        role_id = #{record.roleId,jdbcType=INTEGER},
-      </if>
-      <if test="record.roleName != null">
-        role_name = #{record.roleName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createTime != null">
-        create_time = #{record.createTime,jdbcType=DATE},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update role
-    set role_id = #{record.roleId,jdbcType=INTEGER},
-      role_name = #{record.roleName,jdbcType=VARCHAR},
-      create_time = #{record.createTime,jdbcType=DATE}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="org.wesc.ssm.dao.entity.Role">
+  <delete id="deleteById" parameterType="java.lang.Integer">
+    delete from role
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByIds">
+    delete from role where role_id in 
+    <foreach close=")" collection="list" item="id" open="(" separator=",">
+      #{id}
+    </foreach>
+  </delete>
+  <delete id="deleteByMap">
+    delete from r using (role as r) 
+    <where>
+      <include refid="Map_Where_Clause" />
+    </where>
+  </delete>
+  <update id="updateSelectiveById" parameterType="org.wesc.ssm.dao.entity.Role">
     update role
     <set>
       <if test="roleName != null">
@@ -173,10 +135,53 @@
     </set>
     where role_id = #{roleId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="org.wesc.ssm.dao.entity.Role">
-    update role
-    set role_name = #{roleName,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=DATE}
-    where role_id = #{roleId,jdbcType=INTEGER}
+  <update id="updateSelectiveByMap" parameterType="map">
+    update role r
+    <set>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleName != null">
+        role_name = #{record.roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=DATE},
+      </if>
+    </set>
+    <where>
+      <if test="null != map.roleId">
+        and r.role_id = #{map.roleId}
+      </if>
+      <if test="null != map.ne_roleId">
+        and r.role_id != #{map.ne_roleId}
+      </if>
+      <if test="null != map.list_roleId">
+        and r.role_id in (<foreach collection="map.list_roleId" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.roleName">
+        and r.role_name = #{map.roleName}
+      </if>
+      <if test="null != map.ne_roleName">
+        and r.role_name != #{map.ne_roleName}
+      </if>
+      <if test="null != map.like_roleName">
+        and r.role_name like CONCAT('%', #{map.like_roleName}, '%')
+      </if>
+      <if test="null != map.list_roleName">
+        and r.role_name in (<foreach collection="map.list_roleName" item="i" separator=",">#{i}</foreach>)
+      </if>
+      <if test="null != map.begin_roleName">
+        and r.role_name &gt;= #{map.begin_roleName}
+      </if>
+      <if test="null != map.end_roleName">
+        and r.role_name &lt;= #{map.end_roleName}
+      </if>
+      <if test="null != map.begin_createTime">
+        and r.create_time &gt;= #{map.begin_createTime}
+      </if>
+      <if test="null != map.end_createTime">
+        and r.create_time &lt;= #{map.end_createTime}
+      </if>
+    </where>
   </update>
 </mapper>

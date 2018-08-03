@@ -1,30 +1,31 @@
 package org.wesc.ssm.dao.mapper;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 import org.wesc.ssm.dao.entity.RolePermission;
-import org.wesc.ssm.dao.entity.RolePermissionExample;
+import org.wesc.ssm.dao.generator.base.BaseMapper;
+import org.wesc.ssm.dao.generator.base.ManagementMapper;
 
-public interface RolePermissionMapper {
-    long countByExample(RolePermissionExample example);
+public interface RolePermissionMapper extends org.wesc.ssm.dao.generator.base.BaseMapper<RolePermission, Integer>, org.wesc.ssm.dao.generator.base.ManagementMapper<RolePermission, Integer> {
+    RolePermission selectById(Integer id);
 
-    int deleteByExample(RolePermissionExample example);
+    java.util.List<RolePermission> selectByMap(java.util.Map<String, Object> map);
 
-    int deleteByPrimaryKey(Integer id);
+    java.util.List<RolePermission> selectByMap(java.util.Map<String, Object> map, RowBounds rb);
 
-    int insert(RolePermission record);
+    Integer countByMap(java.util.Map<String, Object> map);
 
-    int insertSelective(RolePermission record);
+    Integer insertSelective(RolePermission obj);
 
-    List<RolePermission> selectByExample(RolePermissionExample example);
+    Integer deleteById(Integer id);
 
-    RolePermission selectByPrimaryKey(Integer id);
+    Integer deleteByIds(java.util.List<Integer> ids);
 
-    int updateByExampleSelective(@Param("record") RolePermission record, @Param("example") RolePermissionExample example);
+    Integer deleteByMap(java.util.Map<String, Object> map);
 
-    int updateByExample(@Param("record") RolePermission record, @Param("example") RolePermissionExample example);
+    Integer updateSelectiveById(RolePermission obj);
 
-    int updateByPrimaryKeySelective(RolePermission record);
-
-    int updateByPrimaryKey(RolePermission record);
+    Integer updateSelectiveByMap(@Param("record") RolePermission obj, @Param("map") java.util.Map<String, Object> param);
 }

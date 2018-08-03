@@ -1,30 +1,31 @@
 package org.wesc.ssm.dao.mapper;
 
 import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 import org.wesc.ssm.dao.entity.Permission;
-import org.wesc.ssm.dao.entity.PermissionExample;
+import org.wesc.ssm.dao.generator.base.BaseMapper;
+import org.wesc.ssm.dao.generator.base.ManagementMapper;
 
-public interface PermissionMapper {
-    long countByExample(PermissionExample example);
+public interface PermissionMapper extends org.wesc.ssm.dao.generator.base.BaseMapper<Permission, Integer>, org.wesc.ssm.dao.generator.base.ManagementMapper<Permission, Integer> {
+    Permission selectById(Integer permissionId);
 
-    int deleteByExample(PermissionExample example);
+    java.util.List<Permission> selectByMap(java.util.Map<String, Object> map);
 
-    int deleteByPrimaryKey(Integer permissionId);
+    java.util.List<Permission> selectByMap(java.util.Map<String, Object> map, RowBounds rb);
 
-    int insert(Permission record);
+    Integer countByMap(java.util.Map<String, Object> map);
 
-    int insertSelective(Permission record);
+    Integer insertSelective(Permission obj);
 
-    List<Permission> selectByExample(PermissionExample example);
+    Integer deleteById(Integer permissionId);
 
-    Permission selectByPrimaryKey(Integer permissionId);
+    Integer deleteByIds(java.util.List<Integer> ids);
 
-    int updateByExampleSelective(@Param("record") Permission record, @Param("example") PermissionExample example);
+    Integer deleteByMap(java.util.Map<String, Object> map);
 
-    int updateByExample(@Param("record") Permission record, @Param("example") PermissionExample example);
+    Integer updateSelectiveById(Permission obj);
 
-    int updateByPrimaryKeySelective(Permission record);
-
-    int updateByPrimaryKey(Permission record);
+    Integer updateSelectiveByMap(@Param("record") Permission obj, @Param("map") java.util.Map<String, Object> param);
 }

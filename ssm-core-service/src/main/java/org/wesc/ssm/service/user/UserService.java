@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 import org.wesc.ssm.dao.entity.Permission;
 import org.wesc.ssm.dao.entity.Role;
 import org.wesc.ssm.dao.entity.User;
-import org.wesc.ssm.dao.entity.UserExample;
 import org.wesc.ssm.dao.mapper.UserMapper;
 import org.wesc.ssm.dao.querymapper.UserRolesAndPermissionsQueryMapper;
+import org.wesc.ssm.dao.utils.MyBatisUtils;
 import org.wesc.ssm.service.exception.ErrorCodes;
 import org.wesc.ssm.service.exception.ServiceException;
 
@@ -47,10 +47,9 @@ public class UserService {
      * @return
      */
     public User findUserByAccount(String account) throws ServiceException {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andAccountEqualTo(account);
-        List<User> users = userMapper.selectByExample(example);
+        List<User> users = userMapper.selectByMap(MyBatisUtils.buildParameterMap(
+           User.Fields.ACCOUNT, account
+        ));
         if (null == users || users.size() == 0) {
             logger.warn("No such account found in user info!");
             return null;
@@ -68,10 +67,9 @@ public class UserService {
      * @return
      */
     public User findUserByMobile(String mobile) throws ServiceException {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andMobileEqualTo(mobile);
-        List<User> users = userMapper.selectByExample(example);
+        List<User> users = userMapper.selectByMap(MyBatisUtils.buildParameterMap(
+                User.Fields.MOBILE, mobile
+        ));
         if (null == users || users.size() == 0) {
             logger.warn("No such mobile found in user info!");
             return null;
@@ -90,10 +88,9 @@ public class UserService {
      * @throws ServiceException
      */
     public User findUserByEmail(String email) throws ServiceException {
-        UserExample example = new UserExample();
-        UserExample.Criteria criteria = example.createCriteria();
-        criteria.andEmailEqualTo(email);
-        List<User> users = userMapper.selectByExample(example);
+        List<User> users = userMapper.selectByMap(MyBatisUtils.buildParameterMap(
+                User.Fields.EMAIL, email
+        ));
         if (null == users || users.size() == 0) {
             logger.warn("No such email found in user info!");
             return null;
@@ -110,7 +107,7 @@ public class UserService {
      * @return
      */
     public List<User> findAllUser() {
-        return userMapper.selectByExample(new UserExample());
+        return userMapper.selectByMap(MyBatisUtils.buildParameterMap());
     }
 
     /**

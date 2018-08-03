@@ -27,7 +27,7 @@
             2，MyBatis3Simple：类似MyBatis3，只是不生成XXXExample，可避免在table中设置不生成example；
         introspectedColumnImpl：类全限定名，用于扩展MBG
     -->
-    <context id="default" targetRuntime="MyBatis3" defaultModelType="flat">
+    <context id="default" targetRuntime="MyBatis3Simple" defaultModelType="flat">
         <!-- NOTE: 以下配置项有严格的配置顺序 -->
 
         <!-- 生成的Java文件的编码 -->
@@ -50,8 +50,12 @@
         <property name="endingDelimiter" value="`"/>
 
         <!-- Plugins -->
+        <!-- 自定义生成插件 -->
+        <plugin type="org.wesc.ssm.dao.generator.base.CustomClientPlugin">
+        </plugin>
+
         <!-- 设置文件覆盖而非追加写 -->
-        <plugin type="org.wesc.ssm.dao.generator.OverIsMergeablePlugin" />
+        <plugin type="org.wesc.ssm.dao.generator.base.OverIsMergeablePlugin" />
 
         <!-- 配置生成toString()方法 -->
         <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
@@ -60,17 +64,17 @@
         <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
 
         <!-- 增加生成的Java模型类添加序列化接口，并生成serialVersionUID字段 -->
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin" />-->
 
         <!-- 添加分页功能（假分页，非mysql limit方法，可能会造成性能缺陷） -->
         <!--<plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />-->
 
         <!-- 自定义分页插件：真分页 -->
-        <plugin type="org.wesc.ssm.dao.generator.PaginationPlugin" />
+        <!--<plugin type="org.wesc.ssm.dao.generator.base.PaginationPlugin" />-->
 
 
         <!-- 在创建class时，对注释进行控制 -->
-        <commentGenerator type="org.wesc.ssm.dao.generator.CustomCommentGenerator">
+        <commentGenerator type="org.wesc.ssm.dao.generator.base.CustomCommentGenerator">
             <property name="suppressAllComments" value="false" />
             <property name="suppressDate" value="true" />
         </commentGenerator>
@@ -111,7 +115,7 @@
                 注意：如果在key class或者record class中有root class相同的属性，MBG就不会重新生成这些属性了，包括：
                     属性名相同，类型相同，有相同的getter/setter方法；
              -->
-            <!--<property name="rootClass" value="org.wesc.ssm.dao.generator.BaseEntity" />-->
+            <property name="rootClass" value="org.wesc.ssm.dao.generator.base.BaseEntity" />
         </javaModelGenerator>
 
         <!--
@@ -121,7 +125,7 @@
          -->
         <sqlMapGenerator targetPackage="mapper_xml" targetProject="ssm-core-dao/src/main/resources">
             <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
-            <property name="enableSubPackages" value="false"/>
+            <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
 
@@ -133,12 +137,12 @@
                 3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
             注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
          -->
-        <javaClientGenerator targetPackage="org.wesc.ssm.dao.mapper" targetProject="ssm-core-dao/src/main/java" type="XMLMAPPER">
-            <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+        <javaClientGenerator type="org.wesc.ssm.dao.generator.base.CustomJavaClientGenerator"
+                             targetPackage="org.wesc.ssm.dao.mapper" targetProject="ssm-core-dao/src/main/java" >
             <property name="enableSubPackages" value="true"/>
-
             <!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查 -->
-            <property name="rootInterface" value=""/>
+            <property name="rootInterface" value="org.wesc.ssm.dao.generator.base.BaseMapper"/>
+            <property name="managementInterface" value="org.wesc.ssm.dao.generator.base.ManagementMapper" />
         </javaClientGenerator>
 
         <!--
@@ -179,23 +183,23 @@
          -->
         <!-- Shiro Related Tables -->
         <table tableName="user" domainObjectName="User">
-            <generatedKey  column="user_id"  sqlStatement="default" identity="true" />
+            <generatedKey  column="user_id"  sqlStatement="default" />
         </table>
 
         <table tableName="role" domainObjectName="Role">
-            <generatedKey  column="role_id"  sqlStatement="default" identity="true" />
+            <generatedKey  column="role_id"  sqlStatement="default" />
         </table>
 
         <table tableName="permission" domainObjectName="Permission">
-            <generatedKey  column="permission_id"  sqlStatement="default" identity="true" />
+            <generatedKey  column="permission_id"  sqlStatement="default" />
         </table>
 
         <table tableName="user_role" domainObjectName="UserRole">
-            <generatedKey  column="id"  sqlStatement="default" identity="true" />
+            <generatedKey  column="id"  sqlStatement="default" />
         </table>
 
         <table tableName="role_permission" domainObjectName="RolePermission">
-            <generatedKey  column="id"  sqlStatement="default" identity="true" />
+            <generatedKey  column="id"  sqlStatement="default" />
         </table>
 
     </context>

@@ -21,9 +21,9 @@ import org.wesc.ssm.utils.tool.RandomIdentity;
  * @Date: 2018/7/25 17:37
  */
 @Service
-public class SignService {
+public class LoginService {
 
-    public static final Logger logger = LogManager.getLogger(SignService.class);
+    public static final Logger logger = LogManager.getLogger(LoginService.class);
 
     @Autowired
     private UserService userService;
@@ -48,6 +48,7 @@ public class SignService {
                 currentUser.login(token);
                 String msg = "用户" + username + "登录成功";
                 logger.info(msg);
+                // TODO: 记录登录信息存储到数据库中
                 return new LoginResult(true, token, msg);
             } catch (UnknownAccountException ex) {
                 String errMsg = "账号不存在";
@@ -122,6 +123,24 @@ public class SignService {
             subject.logout();
         } catch (Exception e) {
             throw new ServiceException("Logout error", "注销失败");
+        }
+    }
+
+    /**
+     * 获取登录信息
+     * @return
+     * @throws ServiceException
+     */
+    public User getLoginInfo() throws ServiceException {
+        try {
+            Object object = SecurityUtils.getSubject().getPrincipal();
+            if (null == object) {
+                return null;
+            } else {
+                return (User)object;
+            }
+        } catch (Exception e) {
+            throw new ServiceException("Failed to get login info", "获取登录信息失败");
         }
     }
 

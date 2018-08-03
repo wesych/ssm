@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.wesc.ssm.dao.entity.User;
-import org.wesc.ssm.dao.entity.UserExample;
 import org.wesc.ssm.dao.mapper.UserMapper;
+import org.wesc.ssm.dao.utils.MyBatisUtils;
 
 import java.util.List;
 
@@ -20,13 +20,13 @@ public class TestUser {
 
     @Test
     public void testFindAll() {
-        List<User> users = userMapper.selectByExample(new UserExample());
+        List<User> users = userMapper.selectByMap(MyBatisUtils.EMPTY_MAP);
         users.forEach(System.err::println);
     }
 
     @Test
     public void testFindOne(){
-        User user = userMapper.selectByPrimaryKey(1);
+        User user = userMapper.selectById(1);
         System.err.println(user.toString());
     }
 

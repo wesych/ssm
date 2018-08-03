@@ -1,9 +1,14 @@
 package org.wesc.ssm.dao.entity;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import org.wesc.ssm.dao.generator.base.BaseEntity;
 
-public class Permission implements Serializable {
+public class Permission extends BaseEntity<Integer> {
     /**
      * permissionId
      */
@@ -19,7 +24,7 @@ public class Permission implements Serializable {
      */
     private Date createTime;
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2802106662658875869L;
 
     /**
      * {@link #permissionId}
@@ -64,6 +69,46 @@ public class Permission implements Serializable {
     }
 
     @Override
+    public String getIdPropertyName() {
+        return "permissionId";
+    }
+
+    @Override
+    public Integer getIdValue() {
+        return permissionId;
+    }
+
+    @Override
+    public void setIdValue(Integer id) {
+        this.permissionId = id;
+    }
+
+    public static JSONObject toJSON(Permission e) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (e == null) {
+            return null;
+        }
+        JSONObject obj = (JSONObject) JSON.toJSON(e);
+        if (e.getCreateTime() != null) {
+            obj.put("createTimeStr", fmt.format(e.getCreateTime()));
+        }
+        return obj;
+    }
+
+    public static List<JSONObject> toJSON(List<Permission> list) {
+        List<JSONObject> retList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            retList.add(toJSON(list.get(i)));
+        }
+        return retList;
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        return Permission.toJSON(this);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
@@ -72,6 +117,7 @@ public class Permission implements Serializable {
         sb.append(", permissionId=").append(permissionId);
         sb.append(", permissionName=").append(permissionName);
         sb.append(", createTime=").append(createTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
@@ -101,5 +147,41 @@ public class Permission implements Serializable {
         result = prime * result + ((getPermissionName() == null) ? 0 : getPermissionName().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
+    }
+
+    public static class Fields {
+        public static final String PERMISSION_ID = "permissionId";
+
+        public static final String PERMISSION_NAME = "permissionName";
+
+        public static final String CREATE_TIME = "createTime";
+    }
+
+    public static class Query {
+        public static final String PERMISSION_ID__NE = "ne_permissionId";
+
+        public static final String PERMISSION_ID__IN = "list_permissionId";
+
+        public static final String PERMISSION_ID__BEGIN = "begin_permissionId";
+
+        public static final String PERMISSION_ID__END = "end_permissionId";
+
+        public static final String PERMISSION_NAME__NE = "ne_permissionName";
+
+        public static final String PERMISSION_NAME__LIKE = "like_permissionName";
+
+        public static final String PERMISSION_NAME__IN = "list_permissionName";
+
+        public static final String PERMISSION_NAME__BEGIN = "begin_permissionName";
+
+        public static final String PERMISSION_NAME__END = "end_permissionName";
+
+        public static final String CREATE_TIME__NE = "ne_createTime";
+
+        public static final String CREATE_TIME__IN = "list_createTime";
+
+        public static final String CREATE_TIME__BEGIN = "begin_createTime";
+
+        public static final String CREATE_TIME__END = "end_createTime";
     }
 }

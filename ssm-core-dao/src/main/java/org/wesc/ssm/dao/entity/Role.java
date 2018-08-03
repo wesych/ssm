@@ -1,9 +1,14 @@
 package org.wesc.ssm.dao.entity;
 
-import java.io.Serializable;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import org.wesc.ssm.dao.generator.base.BaseEntity;
 
-public class Role implements Serializable {
+public class Role extends BaseEntity<Integer> {
     /**
      * roleId
      */
@@ -19,7 +24,7 @@ public class Role implements Serializable {
      */
     private Date createTime;
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -8982340372655168475L;
 
     /**
      * {@link #roleId}
@@ -64,6 +69,46 @@ public class Role implements Serializable {
     }
 
     @Override
+    public String getIdPropertyName() {
+        return "roleId";
+    }
+
+    @Override
+    public Integer getIdValue() {
+        return roleId;
+    }
+
+    @Override
+    public void setIdValue(Integer id) {
+        this.roleId = id;
+    }
+
+    public static JSONObject toJSON(Role e) {
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (e == null) {
+            return null;
+        }
+        JSONObject obj = (JSONObject) JSON.toJSON(e);
+        if (e.getCreateTime() != null) {
+            obj.put("createTimeStr", fmt.format(e.getCreateTime()));
+        }
+        return obj;
+    }
+
+    public static List<JSONObject> toJSON(List<Role> list) {
+        List<JSONObject> retList = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            retList.add(toJSON(list.get(i)));
+        }
+        return retList;
+    }
+
+    @Override
+    public JSONObject toJSON() {
+        return Role.toJSON(this);
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
@@ -72,6 +117,7 @@ public class Role implements Serializable {
         sb.append(", roleId=").append(roleId);
         sb.append(", roleName=").append(roleName);
         sb.append(", createTime=").append(createTime);
+        sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
     }
@@ -101,5 +147,41 @@ public class Role implements Serializable {
         result = prime * result + ((getRoleName() == null) ? 0 : getRoleName().hashCode());
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         return result;
+    }
+
+    public static class Fields {
+        public static final String ROLE_ID = "roleId";
+
+        public static final String ROLE_NAME = "roleName";
+
+        public static final String CREATE_TIME = "createTime";
+    }
+
+    public static class Query {
+        public static final String ROLE_ID__NE = "ne_roleId";
+
+        public static final String ROLE_ID__IN = "list_roleId";
+
+        public static final String ROLE_ID__BEGIN = "begin_roleId";
+
+        public static final String ROLE_ID__END = "end_roleId";
+
+        public static final String ROLE_NAME__NE = "ne_roleName";
+
+        public static final String ROLE_NAME__LIKE = "like_roleName";
+
+        public static final String ROLE_NAME__IN = "list_roleName";
+
+        public static final String ROLE_NAME__BEGIN = "begin_roleName";
+
+        public static final String ROLE_NAME__END = "end_roleName";
+
+        public static final String CREATE_TIME__NE = "ne_createTime";
+
+        public static final String CREATE_TIME__IN = "list_createTime";
+
+        public static final String CREATE_TIME__BEGIN = "begin_createTime";
+
+        public static final String CREATE_TIME__END = "end_createTime";
     }
 }
