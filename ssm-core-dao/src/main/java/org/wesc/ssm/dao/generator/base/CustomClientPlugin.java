@@ -244,11 +244,11 @@ public class CustomClientPlugin extends org.mybatis.generator.api.PluginAdapter 
         field.setFinal(true);
         field.setType(new FullyQualifiedJavaType("long"));
         field.setName("serialVersionUID");
-        field.setInitializationString(generateSerialVerseionUid(clazz) + "L");
+        field.setInitializationString(generateSerialVersionUid(clazz) + "L");
         clazz.addField(field);
     }
     
-    private long generateSerialVerseionUid(TopLevelClass clazz) {
+    private long generateSerialVersionUid(TopLevelClass clazz) {
         try {
             StringBuilder sb = new StringBuilder();
             sb.append(clazz.getType().getFullyQualifiedName());

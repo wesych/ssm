@@ -21,15 +21,15 @@ import org.mybatis.generator.codegen.AbstractXmlGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.JavaMapperGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
 
-public class CustomJavaClientGenerator extends JavaMapperGenerator {
+public class CustomJavaMapperGenerator extends JavaMapperGenerator {
 
 	private static final String PROPERTY_MANAGEMENT_INTERFACE = "managementInterface";
 
-    public CustomJavaClientGenerator() {
+    public CustomJavaMapperGenerator() {
         super(true);
     }
 
-    public CustomJavaClientGenerator(boolean requiresXMLGenerator) {
+    public CustomJavaMapperGenerator(boolean requiresXMLGenerator) {
         super(requiresXMLGenerator);
     }
 
@@ -103,7 +103,7 @@ public class CustomJavaClientGenerator extends JavaMapperGenerator {
     }
 
     protected void addUpdateSelectiveByMap(Interface interfaze) {
-        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
+        Set<FullyQualifiedJavaType> importedTypes = new TreeSet<>();
         Method method = new Method();
         method.setVisibility(JavaVisibility.PUBLIC);
 

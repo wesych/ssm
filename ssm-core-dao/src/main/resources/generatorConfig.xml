@@ -137,7 +137,7 @@
                 3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
             注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
          -->
-        <javaClientGenerator type="org.wesc.ssm.dao.generator.base.CustomJavaClientGenerator"
+        <javaClientGenerator type="org.wesc.ssm.dao.generator.base.CustomJavaMapperGenerator"
                              targetPackage="org.wesc.ssm.dao.mapper" targetProject="ssm-core-dao/src/main/java" >
             <property name="enableSubPackages" value="true"/>
             <!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查 -->
