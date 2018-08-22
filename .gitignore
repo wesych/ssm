@@ -1,1 +1,9 @@
 .idea
+ssm-common-utils/target/
+ssm-core-dao/target/
+ssm-core-service/target/
+ssm-core-shiro/src/test/
+ssm-core-shiro/target/
+ssm-restful-api/target/
+ssm-web-management/target/
+ssm-web-portal/target/
