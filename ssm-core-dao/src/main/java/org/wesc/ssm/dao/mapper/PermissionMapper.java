@@ -8,24 +8,24 @@ import org.wesc.ssm.dao.entity.Permission;
 import org.wesc.ssm.dao.generator.base.BaseMapper;
 import org.wesc.ssm.dao.generator.base.ManagementMapper;
 
-public interface PermissionMapper extends org.wesc.ssm.dao.generator.base.BaseMapper<Permission, Integer>, org.wesc.ssm.dao.generator.base.ManagementMapper<Permission, Integer> {
+public interface PermissionMapper extends BaseMapper<Permission, Integer>, ManagementMapper<Permission, Integer> {
     Permission selectById(Integer permissionId);
 
-    java.util.List<Permission> selectByMap(java.util.Map<String, Object> map);
+    List<Permission> selectByMap(Map<String, Object> map);
 
-    java.util.List<Permission> selectByMap(java.util.Map<String, Object> map, RowBounds rb);
+    List<Permission> selectByMap(Map<String, Object> map, RowBounds rb);
 
-    Integer countByMap(java.util.Map<String, Object> map);
+    Integer countByMap(Map<String, Object> map);
 
     Integer insertSelective(Permission obj);
 
     Integer deleteById(Integer permissionId);
 
-    Integer deleteByIds(java.util.List<Integer> ids);
+    Integer deleteByIds(List<Integer> ids);
 
-    Integer deleteByMap(java.util.Map<String, Object> map);
+    Integer deleteByMap(Map<String, Object> map);
 
     Integer updateSelectiveById(Permission obj);
 
-    Integer updateSelectiveByMap(@Param("record") Permission obj, @Param("map") java.util.Map<String, Object> param);
+    Integer updateSelectiveByMap(@Param("record") Permission obj, @Param("map") Map<String, Object> param);
 }

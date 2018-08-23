@@ -1,29 +1,20 @@
 package org.wesc.ssm.dao.generator.base;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.IntrospectedColumn;
-import org.mybatis.generator.api.dom.java.CompilationUnit;
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
-import org.mybatis.generator.api.dom.java.Interface;
-import org.mybatis.generator.api.dom.java.JavaVisibility;
-import org.mybatis.generator.api.dom.java.Method;
-import org.mybatis.generator.api.dom.java.Parameter;
+import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.AbstractXmlGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.JavaMapperGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
 
+import java.util.*;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
+
 public class CustomJavaMapperGenerator extends JavaMapperGenerator {
 
-	private static final String PROPERTY_MANAGEMENT_INTERFACE = "managementInterface";
+    private static final String PROPERTY_MANAGEMENT_INTERFACE = "managementInterface";
 
     public CustomJavaMapperGenerator() {
         super(true);
@@ -52,42 +43,44 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
             rootInterface = context.getJavaClientGeneratorConfiguration().getProperty(
                     PropertyRegistry.ANY_ROOT_INTERFACE);
         }
+        FullyQualifiedJavaType tmpRootInterface = new FullyQualifiedJavaType(rootInterface);
         if (stringHasValue(rootInterface)) {
-            FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(String.format(rootInterface + "<%s, %s>",
+            FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(String.format(tmpRootInterface.getShortName() + "<%s, %s>",
                     this.introspectedTable.getFullyQualifiedTable().getDomainObjectName(),
                     this.introspectedTable.getPrimaryKeyColumns().get(0).getFullyQualifiedJavaType()));
             interfaze.addSuperInterface(fqjt);
-            interfaze.addImportedType(fqjt);
+            interfaze.addImportedType(tmpRootInterface);
             interfaze.addImportedType(new FullyQualifiedJavaType(this.introspectedTable.getBaseRecordType()));
         }
-        
+
         // ManagementMapper接口
         String managementInterface = context.getJavaClientGeneratorConfiguration().getProperty(PROPERTY_MANAGEMENT_INTERFACE);
+        FullyQualifiedJavaType tmpManagemetInterface = new FullyQualifiedJavaType(managementInterface);
         if (stringHasValue(managementInterface)) {
             List<IntrospectedColumn> columns = introspectedTable.getPrimaryKeyColumns();
             if (columns.size() == 1) {
-            	IntrospectedColumn pkcol = columns.get(0);
-            	
-                FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(String.format(managementInterface + "<%s,%s>",
+                IntrospectedColumn pkcol = columns.get(0);
+
+                FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType(String.format(tmpManagemetInterface.getShortName() + "<%s,%s>",
                         this.introspectedTable.getFullyQualifiedTable().getDomainObjectName(),
                         pkcol.getFullyQualifiedJavaType()));
                 interfaze.addSuperInterface(fqjt);
-                interfaze.addImportedType(fqjt);
+                interfaze.addImportedType(tmpManagemetInterface);
                 interfaze.addImportedType(new FullyQualifiedJavaType(this.introspectedTable.getBaseRecordType()));
             }
         }
 
-        
-		addSelectById(interfaze);
-		addSelectByMap(interfaze);
-		addSelectByMapWithRowBounds(interfaze);
-		addCountByMap(interfaze);
-		addInsertSelective(interfaze);
-		addDeleteById(interfaze);
-		addDeleteByIds(interfaze);
-		addDeleteByMap(interfaze);
-		addUpdateSelectiveById(interfaze);
-		addUpdateSelectiveByMap(interfaze);
+
+        addSelectById(interfaze);
+        addSelectByMap(interfaze);
+        addSelectByMapWithRowBounds(interfaze);
+        addCountByMap(interfaze);
+        addInsertSelective(interfaze);
+        addDeleteById(interfaze);
+        addDeleteByIds(interfaze);
+        addDeleteByMap(interfaze);
+        addUpdateSelectiveById(interfaze);
+        addUpdateSelectiveByMap(interfaze);
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().clientGenerated(interfaze, null, introspectedTable)) {
@@ -118,7 +111,7 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
         fp.addAnnotation("@Param(\"record\")");
         method.addParameter(fp);
 
-        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType(Map.class.getName());
+        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType("Map");
         importedTypes.add(paramMapType);
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(String.class.getName()));
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(Object.class.getName()));
@@ -127,6 +120,8 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
         method.addParameter(pmap);
 
         interfaze.addImportedTypes(importedTypes);
+        interfaze.addImportedType(new FullyQualifiedJavaType(Map.class.getName()));
+        interfaze.addImportedType(new FullyQualifiedJavaType(List.class.getName()));
         interfaze.addMethod(method);
     }
 
@@ -157,7 +152,7 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
 
         method.setName(SqlIds.getInstance().getIdDeleteByMap());
 
-        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType(Map.class.getName());
+        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType("Map");
         importedTypes.add(paramMapType);
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(String.class.getName()));
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(Object.class.getName()));
@@ -179,8 +174,8 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
         List<IntrospectedColumn> introspectedColumns = introspectedTable.getPrimaryKeyColumns();
         boolean multiKey = introspectedColumns.size() > 1;
         if (multiKey) {// List<Map>
-            FullyQualifiedJavaType ptype = new FullyQualifiedJavaType(List.class.getName());
-            FullyQualifiedJavaType mtype = new FullyQualifiedJavaType(Map.class.getName());
+            FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("List");
+            FullyQualifiedJavaType mtype = new FullyQualifiedJavaType("Map");
             mtype.addTypeArgument(new FullyQualifiedJavaType(String.class.getName()));
             mtype.addTypeArgument(new FullyQualifiedJavaType(Object.class.getName()));
             ptype.addTypeArgument(mtype);
@@ -190,7 +185,7 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
 
         } else {// List<Type>
             IntrospectedColumn col = introspectedColumns.get(0);
-            FullyQualifiedJavaType ptype = new FullyQualifiedJavaType(List.class.getName());
+            FullyQualifiedJavaType ptype = new FullyQualifiedJavaType("List");
             ptype.addTypeArgument(col.getFullyQualifiedJavaType());
             Parameter p = new Parameter(ptype, "ids");
 
@@ -266,7 +261,7 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
 
         method.setName(SqlIds.getInstance().getIdCountByMap());
 
-        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType(Map.class.getName());
+        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType("Map");
         importedTypes.add(paramMapType);
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(String.class.getName()));
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(Object.class.getName()));
@@ -283,7 +278,7 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
         method.setVisibility(JavaVisibility.PUBLIC);
 
         FullyQualifiedJavaType objType = introspectedTable.getRules().calculateAllFieldsClass();
-        FullyQualifiedJavaType listType = new FullyQualifiedJavaType(List.class.getName());
+        FullyQualifiedJavaType listType = new FullyQualifiedJavaType("List");
         listType.addTypeArgument(objType);
 
         method.setReturnType(listType);
@@ -293,7 +288,7 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
 
         method.setName(SqlIds.getInstance().getIdSelectByMap());
 
-        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType(Map.class.getName());
+        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType("Map");
         importedTypes.add(paramMapType);
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(String.class.getName()));
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(Object.class.getName()));
@@ -310,9 +305,9 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
         method.setVisibility(JavaVisibility.PUBLIC);
 
         FullyQualifiedJavaType objType = introspectedTable.getRules().calculateAllFieldsClass();
-        FullyQualifiedJavaType listType = new FullyQualifiedJavaType(List.class.getName());
+        FullyQualifiedJavaType listType = new FullyQualifiedJavaType("List");
         listType.addTypeArgument(objType);
-        
+
 
         method.setReturnType(listType);
 
@@ -321,7 +316,7 @@ public class CustomJavaMapperGenerator extends JavaMapperGenerator {
 
         method.setName(SqlIds.getInstance().getIdSelectByMap());
 
-        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType(Map.class.getName());
+        FullyQualifiedJavaType paramMapType = new FullyQualifiedJavaType("Map");
         importedTypes.add(paramMapType);
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(String.class.getName()));
         paramMapType.addTypeArgument(new FullyQualifiedJavaType(Object.class.getName()));

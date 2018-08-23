@@ -8,24 +8,24 @@ import org.wesc.ssm.dao.entity.Role;
 import org.wesc.ssm.dao.generator.base.BaseMapper;
 import org.wesc.ssm.dao.generator.base.ManagementMapper;
 
-public interface RoleMapper extends org.wesc.ssm.dao.generator.base.BaseMapper<Role, Integer>, org.wesc.ssm.dao.generator.base.ManagementMapper<Role, Integer> {
+public interface RoleMapper extends BaseMapper<Role, Integer>, ManagementMapper<Role, Integer> {
     Role selectById(Integer roleId);
 
-    java.util.List<Role> selectByMap(java.util.Map<String, Object> map);
+    List<Role> selectByMap(Map<String, Object> map);
 
-    java.util.List<Role> selectByMap(java.util.Map<String, Object> map, RowBounds rb);
+    List<Role> selectByMap(Map<String, Object> map, RowBounds rb);
 
-    Integer countByMap(java.util.Map<String, Object> map);
+    Integer countByMap(Map<String, Object> map);
 
     Integer insertSelective(Role obj);
 
     Integer deleteById(Integer roleId);
 
-    Integer deleteByIds(java.util.List<Integer> ids);
+    Integer deleteByIds(List<Integer> ids);
 
-    Integer deleteByMap(java.util.Map<String, Object> map);
+    Integer deleteByMap(Map<String, Object> map);
 
     Integer updateSelectiveById(Role obj);
 
-    Integer updateSelectiveByMap(@Param("record") Role obj, @Param("map") java.util.Map<String, Object> param);
+    Integer updateSelectiveByMap(@Param("record") Role obj, @Param("map") Map<String, Object> param);
 }
