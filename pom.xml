@@ -46,12 +46,15 @@
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-email.version>1.5</commons-email.version>
         <shiro.version>1.4.0</shiro.version>
-        <guava.version>25.1-jre</guava.version>
+        <guava.version>26.0-jre</guava.version>
         <poi.version>3.17</poi.version>
         <cglib.version>3.2.7</cglib.version>
         <aspectj.version>1.9.1</aspectj.version>
         <tiles.version>3.0.8</tiles.version>
         <dubbo.version>2.6.2</dubbo.version>
+        <lombok.version>1.18.2</lombok.version>
+        <swagger2.version>2.9.2</swagger2.version>
+        <disruptor.version>3.4.2</disruptor.version>
     </properties>
 
     <!--版本管理，实际不下载-->
@@ -400,6 +403,31 @@
                 <version>${dubbo.version}</version>
             </dependency>
 
+            <!-- Swagger2 -->
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger2.version}</version>
+            </dependency>
+
+            <!-- Log4j2 异步支持 -->
+            <dependency>
+                <groupId>com.lmax</groupId>
+                <artifactId>disruptor</artifactId>
+                <version>${disruptor.version}</version>
+            </dependency>
+
+            <!-- Lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
