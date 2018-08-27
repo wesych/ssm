@@ -73,6 +73,10 @@
           p:viewClass="org.springframework.web.servlet.view.JstlView"
     />
 
+    <!-- Enables Swagger-UI -->
+    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
     <!-- 区域解析器(每个DispatchServlet只能注册一个)：区域信息保存在session中 -->
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
         <property name="defaultLocale" value="zh_CN" />
