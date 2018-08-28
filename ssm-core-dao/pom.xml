@@ -234,16 +234,6 @@
             <artifactId>aspectjtools</artifactId>
         </dependency>
 
-        <!-- Swagger2 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-        </dependency>
-
         <!-- Log4j2 异步支持 -->
         <dependency>
             <groupId>com.lmax</groupId>
