@@ -9,7 +9,7 @@ function homeController($scope) {
     $scope.loadData = function () {
         $.ajax({
             url: apiUrl + "/user/listAll",
-            type: "post",
+            type: "get",
             dataType: "json",
             data: {
             },

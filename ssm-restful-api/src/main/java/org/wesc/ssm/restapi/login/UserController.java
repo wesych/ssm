@@ -2,12 +2,11 @@ package org.wesc.ssm.restapi.login;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.wesc.ssm.restapi.base.APIResponse;
 import org.wesc.ssm.dao.entity.User;
+import org.wesc.ssm.restapi.base.APIResponse;
 import org.wesc.ssm.service.user.UserService;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/listAll")
+    @RequestMapping(value = "/listAll", method = RequestMethod.GET)
     public APIResponse listAll() {
         List<User> users = userService.findAllUser();
 
