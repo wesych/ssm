@@ -26,8 +26,8 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    /** 过期时间(分钟) */
-    private static final int CACHE_EXPIRE_TIME = 60;
+    /** 过期时间(秒) */
+    private static final int CACHE_EXPIRE_SECONDS = 60 * 60;
 
     private JdkSerializationRedisSerializer serializer = new JdkSerializationRedisSerializer();
 
@@ -67,7 +67,7 @@ public class ShiroRedisCache<K,V> implements Cache<K,V> {
     public V put(K key, V value) throws CacheException {
         logger.debug("Save value = " + value + "to redis with key = " + key);
         try {
-            JdkRedisTemplateUtil.valueSet(createStringKey(key), value, CACHE_EXPIRE_TIME, TimeUnit.MINUTES);
+            JdkRedisTemplateUtil.valueSet(createStringKey(key), value, CACHE_EXPIRE_SECONDS, TimeUnit.SECONDS);
             return value;
         } catch (Throwable t) {
             throw new CacheException(t);

@@ -26,14 +26,14 @@ public class ShiroRedisCacheManager implements CacheManager {
     public <K, V> Cache<K, V> getCache(String name) throws CacheException {
         logger.debug("Get shiro cache instance where name = " + name);
 
-        Cache c = caches.get(name);
-        if (null == c) {
+        Cache cache = caches.get(name);
+        if (null == cache) {
             // create a new cache instance
-            c = new ShiroRedisCache<K, V>();
+            cache = new ShiroRedisCache<K, V>();
             // add it to the cache collection
-            caches.put(name, c);
+            caches.put(name, cache);
         }
-        return c;
+        return cache;
     }
 
 }

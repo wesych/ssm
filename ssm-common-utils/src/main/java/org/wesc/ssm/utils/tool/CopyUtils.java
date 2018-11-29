@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
  * @Date: 2018/8/24 17:06
  */
 @Slf4j
+@SuppressWarnings("unchecked")
 public class CopyUtils {
 
     /**

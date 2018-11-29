@@ -99,7 +99,7 @@ public class ImportHelper implements Closeable {
 				DecimalFormat df = new DecimalFormat("0");
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				DecimalFormat nf = new DecimalFormat("0");
-				switch (cell.getCellTypeEnum()) {
+				switch (cell.getCellType()) {
 				case STRING:
 					value = cell.getStringCellValue();
 					break;
@@ -161,7 +161,7 @@ public class ImportHelper implements Closeable {
 				DecimalFormat df = new DecimalFormat("0");															
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 				DecimalFormat nf = new DecimalFormat("0");
-				switch (cell.getCellTypeEnum()) {
+				switch (cell.getCellType()) {
 				case STRING:
 					value = cell.getStringCellValue();
 					break;
