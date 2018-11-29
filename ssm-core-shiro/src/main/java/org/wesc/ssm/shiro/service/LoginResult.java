@@ -16,13 +16,17 @@ public class LoginResult {
     /** 登录成功保存token，失败则为null. */
     private UsernamePasswordToken token;
 
+    /** 登录返回码*/
+    private int code;
+
     /** 登录返回信息. */
     private String message;
 
     /** Constructor. */
-    public LoginResult(boolean success, UsernamePasswordToken token, String message) {
+    public LoginResult(boolean success, UsernamePasswordToken token, int code, String message) {
         this.success = success;
         this.token = token;
+        this.code = code;
         this.message = message;
     }
 
@@ -40,6 +44,14 @@ public class LoginResult {
 
     public void setToken(UsernamePasswordToken token) {
         this.token = token;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMessage() {

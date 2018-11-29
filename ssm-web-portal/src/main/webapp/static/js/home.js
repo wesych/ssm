@@ -14,7 +14,7 @@ function homeController($scope) {
             data: {
             },
             success: function(resp) {
-                if (resp && resp.result == 200) {
+                if (resp && resp.code == 200) {
                     $scope.dataList = resp.data.data;
                     $scope.$apply();
                 } else {
@@ -40,7 +40,7 @@ function homeController($scope) {
             data: {
             },
             success: function(resp) {
-                if (resp && resp.result == 200) {
+                if (resp && resp.code == 200) {
                     window.location.reload();
                 }
             },

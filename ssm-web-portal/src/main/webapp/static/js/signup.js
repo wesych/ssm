@@ -19,7 +19,7 @@ function checkUniqueness(data, field) {
         data : data,
         dataType : 'json',
         success : function(resp) {
-            if(resp.result != 200){
+            if(resp.code != 200){
                 if(field == 'ACCOUNT'){
                     accountExist = true;
                 }
@@ -212,7 +212,7 @@ function doSignUp() {
             password:$.trim($("#password1").val())
         },
         success: function(resp) {
-            if (resp && resp.result == 1) {
+            if (resp && resp.code == 1) {
                 layer.tips("注册成功", '#nickname', {
                     tips: [2, '#51cc1f'],
                     time: 2000

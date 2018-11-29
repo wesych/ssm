@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 public class APIResponse {
 
     /** 返回代码 */
-    private int result;
+    private int code;
 
     /** 返回消息 */
     private String message;
@@ -20,12 +20,12 @@ public class APIResponse {
     /** 其他数据 */
     private Object data;
 
-    public int getResult() {
-        return result;
+    public int getCode() {
+        return code;
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMessage() {
@@ -68,7 +68,7 @@ public class APIResponse {
      */
     public static APIResponse createSuccessResponse(Object data) {
         APIResponse resp = new APIResponse();
-        resp.setResult(StatusCode.RESPONSE_SUCCESS);
+        resp.setCode(StatusCode.RESPONSE_SUCCESS);
         resp.setMessage("Success");
         resp.setData(data);
         return resp;
@@ -82,7 +82,7 @@ public class APIResponse {
      */
     public static APIResponse createFailResponse(String message) {
         APIResponse resp = new APIResponse();
-        resp.setResult(StatusCode.RESPONSE_ERROR);
+        resp.setCode(StatusCode.RESPONSE_ERROR);
         resp.setMessage(message);
         return resp;
     }
@@ -96,7 +96,7 @@ public class APIResponse {
      */
     public static APIResponse createFailResponse(int errorCode, String message) {
         APIResponse resp = new APIResponse();
-        resp.setResult(errorCode);
+        resp.setCode(errorCode);
         resp.setMessage(message);
         return resp;
     }
@@ -109,7 +109,7 @@ public class APIResponse {
      */
     public static APIResponse createFailLoginResponse(String message) {
         APIResponse resp = new APIResponse();
-        resp.setResult(StatusCode.RESPONSE_ERROR_REQUIRE_LOGIN);
+        resp.setCode(StatusCode.RESPONSE_ERROR_REQUIRE_LOGIN);
         resp.setMessage(message);
         return resp;
     }

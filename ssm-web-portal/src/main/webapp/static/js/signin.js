@@ -101,25 +101,21 @@ function doSignIn() {
             rememberme:document.getElementById("remember-me").checked
         },
         success: function(resp) {
-            if (resp && resp.result == 200) {
+            if (resp && resp.code == 200) {
                 window.location.href = contextPath + "/index";
             } else {
-                var msg='系统故障';
+                var msg=resp.message;
                 var location = '#username';
-                if(resp.message == 'ACCOUNT'){
-                    msg='用户名不存在';
+                if(resp.code == 1001){
                     location = '#username';
                 }
-                if(resp.message == 'PASSWORD'){
-                    msg='密码错误';
+                if(resp.code == 1002){
                     location = '#password';
                 }
-                if(resp.message == 'LOCKED'){
-                    msg='账户已被锁定，请联系管理员';
+                if(resp.code == 1003){
                     location = '#username';
                 }
-                if(resp.message == 'AUTH'){
-                    msg='您没有权限';
+                if(resp.code == 1004){
                     location = '#username';
                 }
 

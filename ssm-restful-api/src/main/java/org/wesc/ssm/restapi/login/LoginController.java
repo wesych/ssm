@@ -48,7 +48,7 @@ public class LoginController {
         if (result.isSuccess()) {
             return APIResponse.createSuccessResponse(result.getToken());
         } else {
-            return APIResponse.createFailResponse(result.getMessage());
+            return APIResponse.createFailResponse(result.getCode(), result.getMessage());
         }
     }
 

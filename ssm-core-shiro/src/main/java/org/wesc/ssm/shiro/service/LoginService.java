@@ -46,31 +46,25 @@ public class LoginService {
             token.setRememberMe(rememberme);
             try {
                 currentUser.login(token);
-                String msg = "用户" + username + "登录成功";
-                logger.info(msg);
+                logger.info(username + LoginMessage.SUCCESS);
                 // TODO: 记录登录信息存储到数据库中
-                return new LoginResult(true, token, msg);
+                return new LoginResult(true, token, LoginMessage.SUCCESS.getCode(), LoginMessage.SUCCESS.getMsg());
             } catch (UnknownAccountException ex) {
-                String errMsg = "账号不存在";
-                logger.info(errMsg);
-                return new LoginResult(false, null, errMsg);
+                logger.info(LoginMessage.ACCOUNT);
+                return new LoginResult(false, null, LoginMessage.ACCOUNT.getCode(), LoginMessage.ACCOUNT.getMsg());
             } catch (IncorrectCredentialsException ex) {
-                String errMsg = "密码错误";
-                logger.info(errMsg);
-                return new LoginResult(false, null, errMsg);
+                logger.info(LoginMessage.PASSWORD);
+                return new LoginResult(false, null, LoginMessage.PASSWORD.getCode(), LoginMessage.PASSWORD.getMsg());
             } catch (LockedAccountException ex) {
-                String errMsg = username + "：此账号已被锁定";
-                logger.info(errMsg);
-                return new LoginResult(false, null, errMsg);
+                logger.info(LoginMessage.LOCKED);
+                return new LoginResult(false, null, LoginMessage.LOCKED.getCode(), LoginMessage.LOCKED.getMsg());
             } catch (AuthenticationException ex) {
-                String errMsg = "没有权限";
-                logger.info(errMsg);
-                return new LoginResult(false, null, errMsg);
+                logger.info(LoginMessage.AUTH);
+                return new LoginResult(false, null, LoginMessage.AUTH.getCode(), LoginMessage.AUTH.getMsg());
             }
         } else {
-            String errMsg = "系统故障：已验证用户无法再次登录或注册";
-            logger.info(errMsg);
-            return new LoginResult(false, null, errMsg);
+            logger.info(LoginMessage.SYSTEM);
+            return new LoginResult(false, null, LoginMessage.SYSTEM.getCode(), LoginMessage.SYSTEM.getMsg());
         }
     }
 
