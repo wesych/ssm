@@ -13,7 +13,7 @@
     <artifactId>ssm-web-management</artifactId>
     <packaging>war</packaging>
 
-    <name>ssm-web-management Maven Webapp</name>
+    <name>ssm-web-management</name>
     <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 

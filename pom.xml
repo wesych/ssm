@@ -21,36 +21,36 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <slf4j.version>1.7.25</slf4j.version>
-        <log4j2.version>2.11.1</log4j2.version>
+        <slf4j.version>1.7.26</slf4j.version>
+        <log4j2.version>2.12.0</log4j2.version>
         <junit.version>4.12</junit.version>
-        <mockito.version>2.23.4</mockito.version>
-        <spring.version>5.1.3.RELEASE</spring.version>
-        <spring-security.version>5.1.1.RELEASE</spring-security.version>
+        <mockito.version>3.0.0</mockito.version>
+        <spring.version>5.1.8.RELEASE</spring.version>
+        <spring-security.version>5.1.5.RELEASE</spring-security.version>
         <mysql-connector.version>5.1.47</mysql-connector.version>
-        <druid.version>1.1.12</druid.version>
-        <mybatis.version>3.4.6</mybatis.version>
-        <mybatis-spring.version>1.3.2</mybatis-spring.version>
+        <druid.version>1.1.19</druid.version>
+        <mybatis.version>3.5.2</mybatis.version>
+        <mybatis-spring.version>2.0.2</mybatis-spring.version>
         <mybatis-generator.version>1.3.7</mybatis-generator.version>
-        <flywaydb.version>5.2.3</flywaydb.version>
-        <jackson.version>2.9.7</jackson.version>
-        <fastjson.version>1.2.53</fastjson.version>
-        <redisson.version>3.9.1</redisson.version>
-        <jedis.version>2.9.0</jedis.version>
-        <spring-redis.version>2.1.3.RELEASE</spring-redis.version>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
-        <commons-codec.version>1.11</commons-codec.version>
+        <flywaydb.version>5.2.4</flywaydb.version>
+        <jackson.version>2.9.9</jackson.version>
+        <fastjson.version>1.2.58</fastjson.version>
+        <redisson.version>3.11.1</redisson.version>
+        <jedis.version>3.1.0</jedis.version>
+        <spring-redis.version>2.1.9.RELEASE</spring-redis.version>
+        <commons-lang3.version>3.9</commons-lang3.version>
+        <commons-codec.version>1.12</commons-codec.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-fileupload.version>1.3.3</commons-fileupload.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-email.version>1.5</commons-email.version>
-        <shiro.version>1.4.0</shiro.version>
-        <guava.version>27.0-jre</guava.version>
-        <poi.version>4.0.0</poi.version>
+        <shiro.version>1.4.1</shiro.version>
+        <guava.version>28.0-jre</guava.version>
+        <poi.version>4.1.0</poi.version>
         <cglib.version>3.2.9</cglib.version>
-        <aspectj.version>1.9.2</aspectj.version>
+        <aspectj.version>1.9.4</aspectj.version>
         <tiles.version>3.0.8</tiles.version>
-        <lombok.version>1.18.4</lombok.version>
+        <lombok.version>1.18.8</lombok.version>
         <swagger2.version>2.9.2</swagger2.version>
         <disruptor.version>3.4.2</disruptor.version>
     </properties>

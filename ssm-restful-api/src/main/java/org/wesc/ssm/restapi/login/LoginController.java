@@ -31,7 +31,7 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
-    private LoginService signService;
+    private LoginService loginService;
 
     /**
      * 登录
@@ -44,7 +44,7 @@ public class LoginController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             @RequestParam("rememberme") boolean rememberme) {
-        LoginResult result = signService.signIn(username, password, rememberme);
+        LoginResult result = loginService.signIn(username, password, rememberme);
         if (result.isSuccess()) {
             return APIResponse.createSuccessResponse(result.getToken());
         } else {
@@ -64,7 +64,7 @@ public class LoginController {
             @RequestParam("mobile") String mobile,
             @RequestParam("password") String password){
         try {
-            User user = signService.signUp(nickname, mobile, password);
+            User user = loginService.signUp(nickname, mobile, password);
             return APIResponse.createSuccessResponse(user);
         } catch (Exception e) {
             return APIResponse.createFailResponse(e.getMessage());
@@ -78,7 +78,7 @@ public class LoginController {
     @ResponseBody
     public APIResponse logout() {
         try {
-            signService.logout();
+            loginService.logout();
             return APIResponse.createSuccessResponse();
         } catch (ServiceException e) {
             return APIResponse.createFailResponse(e.getMessage());
