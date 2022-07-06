@@ -44,7 +44,7 @@
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version>
         <commons-email.version>1.5</commons-email.version>
-        <shiro.version>1.7.1</shiro.version>
+        <shiro.version>1.9.1</shiro.version>
         <guava.version>30.1.1-jre</guava.version>
         <poi.version>5.0.0</poi.version>
         <cglib.version>3.3.0</cglib.version>
